@@ -2,7 +2,7 @@ name := """AkkaDynoDB"""
 
 version := "1.0"
 
-mainClass := Some("""com.iitmandi.nagarjuna_pamu.main.Main""")
+mainClass := Some("""app.Main""")
 
 libraryDependencies ++= Seq("com.typesafe.slick" %% "slick" % "2.1.0",
 							              "mysql" % "mysql-connector-java" % "5.1.34",
