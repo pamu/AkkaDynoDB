@@ -1,9 +1,9 @@
-package app
+package app.demos
 
-import akka.actor.{Props, ActorRef, ActorSystem}
+import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.pattern.ask
 import akka.routing.ConsistentHashingPool
 import akka.routing.ConsistentHashingRouter._
-import akka.pattern.ask
 import akka.util.Timeout
 
 import scala.concurrent.Await
@@ -20,7 +20,7 @@ object Main {
 
     val system = ActorSystem("system")
 
-    import DataStore._
+    import app.demos.DataStore._
 
     def hashMapping: ConsistentHashMapping = {
       case Evict(key) => key
