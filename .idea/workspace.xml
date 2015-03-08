@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4184c5b-ae3b-4b49-aefe-e4e2e06a649f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/node/Node.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/node/Node.scala" afterPath="$PROJECT_DIR$/src/main/scala/node/Node.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AkkaDynoDB.iws" />
@@ -68,8 +68,8 @@
       <file leaf-file-name="Node.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/node/Node.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68720376" vertical-offset="502" max-vertical-offset="924">
-              <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+            <state vertical-scroll-proportion="1.8767773" vertical-offset="66" max-vertical-offset="1078">
+              <caret line="42" column="52" selection-start-line="42" selection-start-column="52" selection-end-line="42" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -1005,8 +1005,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/node/Node.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68720376" vertical-offset="502" max-vertical-offset="924">
-          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+        <state vertical-scroll-proportion="1.8767773" vertical-offset="66" max-vertical-offset="1078">
+          <caret line="42" column="52" selection-start-line="42" selection-start-column="52" selection-end-line="42" selection-end-column="52" />
           <folding />
         </state>
       </provider>

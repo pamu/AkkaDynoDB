@@ -1,8 +1,9 @@
 package node
 
-import akka.actor.{ActorLogging, Actor}
+import akka.actor.{Props, ActorSystem, ActorLogging, Actor}
 import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent.{CurrentClusterState, MemberUp}
+import com.typesafe.config.ConfigFactory
 
 /**
  * Created by android on 8/3/15.
@@ -35,5 +36,12 @@ class Node extends Actor with ActorLogging {
 }
 
 object NodeBootstrap {
-
+  def main(args: Array[String]): Unit = {
+    val port = if(args.isEmpty) "0" else args(0)
+    val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
+                  withFallback(ConfigFactory.parseString("akka.cluster.roles = [node]")).
+                  withFallback(ConfigFactory.load())
+    val system = ActorSystem("ClusterSystem", config)
+    system.actorOf(Props[Node], name = "node")
+  }
 }
