@@ -17,6 +17,8 @@ object DataStore {
 }
 
 class DataStore extends Actor {
+
+  import DataStore._
   
   var store = Map.empty[String, String]
   

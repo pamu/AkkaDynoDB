@@ -36,12 +36,13 @@ class Node extends Actor with ActorLogging {
   }
 }
 
+
 object NodeBootstrap {
   def main(args: Array[String]): Unit = {
-    val port = if(args.isEmpty) "0" else args(0)
+    val port = if (args.isEmpty) "0" else args(0)
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
-                  withFallback(ConfigFactory.parseString("akka.cluster.roles = [node]")).
-                  withFallback(ConfigFactory.load())
+      withFallback(ConfigFactory.parseString("akka.cluster.roles = [node]")).
+      withFallback(ConfigFactory.load())
     val system = ActorSystem("NodeSystem", config)
     system.actorOf(Props[Node], name = "node")
   }
