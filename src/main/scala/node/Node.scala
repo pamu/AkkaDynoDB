@@ -26,7 +26,8 @@ class Node extends Actor with ActorLogging {
   import Node._
 
   override def receive = {
-    case state: CurrentClusterState => state.members.filter(_.status == MemberStatus.Up).foreach(println)
+    case state: CurrentClusterState => state.members.filter(_.status == MemberStatus.Up).
+      foreach(x => println(x.address + " is Up"))
     case MemberUp(member) => log.info("member {} is up", member.address)
 
     case Entry(key, value) => cache += (key -> value)
@@ -41,7 +42,7 @@ object NodeBootstrap {
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
                   withFallback(ConfigFactory.parseString("akka.cluster.roles = [node]")).
                   withFallback(ConfigFactory.load())
-    val system = ActorSystem("ClusterSystem", config)
+    val system = ActorSystem("NodeSystem", config)
     system.actorOf(Props[Node], name = "node")
   }
 }

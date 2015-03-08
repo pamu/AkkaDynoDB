@@ -1,4 +1,4 @@
-package app.demos
+package demo
 
 import akka.actor.Actor
 import akka.routing.ConsistentHashingRouter.ConsistentHashable
@@ -19,8 +19,6 @@ object DataStore {
 class DataStore extends Actor {
   
   var store = Map.empty[String, String]
-  
-  import app.demos.DataStore._
   
   override def receive = {
     case Entry(key, value) => store += (key -> value)

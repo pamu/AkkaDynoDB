@@ -1,4 +1,4 @@
-package app.demos
+package demo
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.pattern.ask
@@ -20,7 +20,7 @@ object Main {
 
     val system = ActorSystem("system")
 
-    import app.demos.DataStore._
+    import demo.DataStore._
 
     def hashMapping: ConsistentHashMapping = {
       case Evict(key) => key
