@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4184c5b-ae3b-4b49-aefe-e4e2e06a649f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/service/AkkaStorageService.scala" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/akkaddms.conf" afterPath="$PROJECT_DIR$/src/main/resources/ass.conf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/node/Node.scala" afterPath="$PROJECT_DIR$/src/main/scala/worker/Worker.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/router/Router.scala" afterPath="$PROJECT_DIR$/src/main/scala/router/Router.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.conf" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/router/Router.scala" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/service/AkkaStorageService.scala" afterPath="$PROJECT_DIR$/src/main/scala/service/AkkaStorageService.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AkkaDynoDB.iws" />
@@ -39,16 +36,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Router.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/router/Router.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="528">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ass.conf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/ass.conf">
           <provider selected="true" editor-type-id="text-editor">
@@ -62,8 +49,8 @@
       <file leaf-file-name="AkkaStorageService.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/service/AkkaStorageService.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.89885056" vertical-offset="159" max-vertical-offset="1056">
-              <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.39310345" vertical-offset="401" max-vertical-offset="1078">
+              <caret line="26" column="71" selection-start-line="26" selection-start-column="71" selection-end-line="26" selection-end-column="71" />
               <folding>
                 <element signature="e#17#62#0" expanded="true" />
               </folding>
@@ -74,7 +61,7 @@
       <file leaf-file-name="DataStore.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/demo/DataStore.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="440" max-vertical-offset="792">
+            <state vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="770">
               <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding />
             </state>
@@ -130,9 +117,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1366" />
-    <option name="height" value="744" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -247,32 +234,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="AkkaStorageService.scala" />
               <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AkkaDynoDB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AkkaDynoDB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="router" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -669,7 +630,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1366" height="744" extended-state="6" />
+    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1080,22 +1041,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/demo/DataStore.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="770">
-          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/router/Router.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="528">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="550">
@@ -1120,10 +1065,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/demo/DataStore.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="335" max-vertical-offset="770">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/service/AkkaStorageService.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.89885056" vertical-offset="159" max-vertical-offset="1056">
-          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.39310345" vertical-offset="401" max-vertical-offset="1078">
+          <caret line="26" column="71" selection-start-line="26" selection-start-column="71" selection-end-line="26" selection-end-column="71" />
           <folding>
             <element signature="e#17#62#0" expanded="true" />
           </folding>

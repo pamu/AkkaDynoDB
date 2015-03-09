@@ -1,6 +1,7 @@
 package service
 
 import akka.actor.{Props, ActorSystem, Actor}
+import akka.routing.ConsistentHashingRouter.ConsistentHashableEnvelope
 import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
 import worker.Worker
@@ -11,19 +12,19 @@ import worker.Worker
 
 class AkkaStorageService extends Actor {
 
-  val workerRouter = context.actorOf(FromConfig.props(Props[Worker]), name = "worker")
+  val workerRouter = context.actorOf(FromConfig.props(Props[Worker]), name = "workerRouter")
 
   import Worker._
 
   override def receive = {
     case Get(key) => {
-
+      workerRouter ! ConsistentHashableEnvelope(message = Get(key), hashKey = key)
     }
     case Entry(key, value) => {
-
+      workerRouter ! ConsistentHashableEnvelope(message = Entry(key, value), hashKey = key)
     }
     case Evict(key) => {
-
+      workerRouter ! ConsistentHashableEnvelope(message = Evict(key), hashKey = key)
     }
   }
 }
