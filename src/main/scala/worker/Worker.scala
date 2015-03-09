@@ -1,4 +1,4 @@
-package node
+package worker
 
 import akka.actor.{Props, ActorSystem, ActorLogging, Actor}
 import akka.cluster.{MemberStatus, Cluster}
@@ -8,13 +8,13 @@ import com.typesafe.config.ConfigFactory
 /**
  * Created by android on 8/3/15.
  */
-object Node {
+object Worker {
   final case class Evict(key: String)
   final case class Get(key: String)
   final case class Entry(key: String, value: String)
 }
 
-class Node extends Actor with ActorLogging {
+class Worker extends Actor with ActorLogging {
 
   var cache = Map.empty[String, String]
 
@@ -23,7 +23,7 @@ class Node extends Actor with ActorLogging {
   override def preStart(): Unit = cluster.subscribe(self, classOf[MemberUp])
   override def postStop(): Unit = cluster.unsubscribe(self)
 
-  import Node._
+  import Worker._
 
   override def receive = {
     case state: CurrentClusterState => state.members.filter(_.status == MemberStatus.Up).
@@ -37,13 +37,13 @@ class Node extends Actor with ActorLogging {
 }
 
 
-object NodeBootstrap {
+object Starter {
   def main(args: Array[String]): Unit = {
     val port = if (args.isEmpty) "0" else args(0)
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
-      withFallback(ConfigFactory.parseString("akka.cluster.roles = [node]")).
+      withFallback(ConfigFactory.parseString("akka.cluster.roles = [store]")).
       withFallback(ConfigFactory.load())
-    val system = ActorSystem("NodeSystem", config)
-    system.actorOf(Props[Node], name = "node")
+    val system = ActorSystem("ClusterSystem", config)
+    system.actorOf(Props[Worker], name = "store")
   }
 }
