@@ -38,14 +38,25 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
   var nodes = Set.empty[Address]
 
   override def receive = {
-    case "tick" if nodes.isEmpty => {
+    case "tick" if !nodes.isEmpty => {
+      println("sending request")
       val address = nodes.toIndexedSeq(ThreadLocalRandom.current.nextInt(nodes.size))
       val service = context.actorSelection(RootActorPath(address) / servicePathElements)
       val random = ThreadLocalRandom.current().nextInt(1, 10)
-      if(random % 2 == 0)
-        service ! worker.Worker.Entry(s"name$random", s"pamu$random")
-      else
+
+      log.info(s"Generated random number $random")
+
+      if(random % 2 == 0) {
+
+        log.info("{}", worker.Worker.Entry(s"key$random", s"value$random").toString)
+
+        service ! worker.Worker.Entry(s"key$random", s"value$random")
+      } else {
+
+        log.info("{}", worker.Worker.Entry(s"key$random", s"value$random").toString)
+
         service ! worker.Worker.Get(s"name$random")
+      }
     }
     case state: CurrentClusterState =>
       nodes = state.members.collect{
