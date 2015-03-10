@@ -21,21 +21,28 @@ class Worker extends Actor with ActorLogging {
   val cluster = Cluster(context.system)
 
   override def preStart(): Unit = cluster.subscribe(self, classOf[MemberUp])
+
   override def postStop(): Unit = cluster.unsubscribe(self)
 
   import Worker._
 
   override def receive = {
+
     case state: CurrentClusterState => state.members.filter(_.status == MemberStatus.Up).
-      foreach(x => println(x.address + " is Up"))
+      foreach(x => log.info(s"${x.address} is Up"))
+
+
     case MemberUp(member) => log.info("member {} is up", member.address)
+
 
     case Entry(key, value) =>
       cache += (key -> value)
       log.info(s"entry request [${cache.mkString(", ")}]")
+
     case Get(key) =>
       sender() ! cache.get(key)
       log.info(s"get request [${cache.mkString(", ")}]")
+
     case Evict(key) =>
       cache -= key
       log.info(s"evict request [${cache.mkString(", ")}]")
