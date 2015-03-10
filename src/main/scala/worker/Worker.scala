@@ -8,20 +8,43 @@ import com.typesafe.config.ConfigFactory
 /**
  * Created by android on 8/3/15.
  */
+
+/** Worker object wrapping the cluster node messages */
 object Worker {
+
+  /**Evict message removes the entry with key
+   *
+   * @param key
+   */
   final case class Evict(key: String)
+
+  /**Get fetches the value of the Entry with given key
+   *
+   * @param key
+   */
   final case class Get(key: String)
+
+  /**Entry adds the Entry to the existing map
+   *
+   * @param key
+   * @param value
+   */
   final case class Entry(key: String, value: String)
 }
 
+/** Worker Actor */
 class Worker extends Actor with ActorLogging {
 
+  /** Storage data structure */
   var cache = Map.empty[String, String]
 
+  /** cluster ref */
   val cluster = Cluster(context.system)
 
+  // on actor pre start
   override def preStart(): Unit = cluster.subscribe(self, classOf[MemberUp])
 
+  // on actor post stop
   override def postStop(): Unit = cluster.unsubscribe(self)
 
   import Worker._
@@ -51,12 +74,19 @@ class Worker extends Actor with ActorLogging {
 
 
 object Starter {
+
   def main(args: Array[String]): Unit = {
+
     val port = if (args.isEmpty) "0" else args(0)
+
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
       withFallback(ConfigFactory.parseString("akka.cluster.roles = [worker]")).
       withFallback(ConfigFactory.load())
+
     val system = ActorSystem("ClusterSystem", config)
+
     system.actorOf(Props[Worker], name = "worker")
+
   }
+
 }

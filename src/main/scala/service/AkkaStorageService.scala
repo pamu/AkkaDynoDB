@@ -10,10 +10,16 @@ import worker.Worker
  * Created by android on 10/3/15.
  */
 
-/** AkkaStorageService Actor contains the consistent hashing router */
+/**
+ * AkkaStorageService Actor contains the consistent hashing router
+ *
+ */
 class AkkaStorageService extends Actor {
 
-  /** consistent hashing router inflated from the configuration */
+  /**
+   * consistent hashing router inflated from the configuration
+   *
+   */
   val workerRouter = context.actorOf(FromConfig.props(Props[Worker]), name = "workerRouter")
 
   // import the worker node message get, entry, evict
@@ -41,7 +47,10 @@ class AkkaStorageService extends Actor {
   }
 }
 
-/** Starter object for the Akka Storage Service */
+/**
+ * Starter object for the Akka Storage Service
+ *
+ */
 object Starter {
 
   def main(args: Array[String]): Unit = {

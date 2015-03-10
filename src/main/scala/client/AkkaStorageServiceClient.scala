@@ -4,7 +4,6 @@ import akka.actor._
 import akka.cluster.Cluster
 import akka.cluster.ClusterEvent._
 import akka.cluster.protobuf.msg.ClusterMessages.MemberStatus
-import worker.Worker.{Get, Entry}
 import scala.concurrent.duration._
 import scala.concurrent.forkjoin.ThreadLocalRandom
 
@@ -12,10 +11,20 @@ import scala.concurrent.forkjoin.ThreadLocalRandom
  * Created by android on 10/3/15.
  */
 
+/**
+ *
+ * @param servicePath
+ */
 class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogging {
 
+  /**
+   *
+   */
   val cluster = Cluster(context.system)
 
+  /**
+   *
+   */
   val servicePathElements = servicePath match {
 
     case RelativeActorPath(elements) => elements
@@ -26,12 +35,18 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
   }
 
+  /**
+   *
+   */
   override def preStart(): Unit = {
 
     cluster.subscribe(self, classOf[MemberEvent], classOf[ReachabilityEvent])
 
   }
 
+  /**
+   *
+   */
   override def postStop(): Unit = {
 
     cluster.unsubscribe(self)
@@ -42,12 +57,25 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
   import context.dispatcher
 
+  /**
+   *
+   */
   val tickTask = context.system.scheduler.schedule(2.seconds, 10.seconds, self, "tick")
 
+  /**
+   *
+   */
   var nodes = Set.empty[Address]
 
+  /**
+   *
+   */
   var seq = 0
 
+  /**
+   *
+   * @return
+   */
   override def receive = {
 
     case "tick" if !nodes.isEmpty => {
@@ -103,14 +131,30 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
 }
 
-/** Wraper object for the Cluster bootstrap code */
+/**
+ * Wraper object for the Cluster bootstrap code
+ *
+ */
 
+/**
+ *
+ */
 object Starter {
 
+  /**
+   *
+   * @param args
+   */
   def main(args: Array[String]): Unit = {
 
-    /**Getting the actor system by the name `ClusterSystem` */
+    /**
+     * Getting the actor system by the name `ClusterSystem`
+     *
+     */
 
+    /**
+     *
+     */
     val system = ActorSystem("ClusterSystem")
 
     //start the client actor
