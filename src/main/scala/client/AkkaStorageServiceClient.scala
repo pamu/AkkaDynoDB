@@ -11,19 +11,19 @@ import scala.concurrent.forkjoin.ThreadLocalRandom
  * Created by android on 10/3/15.
  */
 
-/**
+/**Akka Storage Service Client Actor
  *
  * @param servicePath
  */
 class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogging {
 
-  /**
-   *
+  /** Cluster ref to subscribe to cluster events
+   * cluster companion object takes context.system
    */
   val cluster = Cluster(context.system)
 
-  /**
-   *
+  /** Service Path is the path of the
+   * Akka Storage Service
    */
   val servicePathElements = servicePath match {
 
@@ -35,45 +35,50 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
   }
 
-  /**
-   *
+  /** preStart method
+   *  executed in the beginning of the actor formation
    */
   override def preStart(): Unit = {
-
+    /**
+     * Subscribing to the cluster events
+     */
     cluster.subscribe(self, classOf[MemberEvent], classOf[ReachabilityEvent])
-
   }
 
   /**
-   *
+   * postStop method is executed just after actor is stopped
    */
   override def postStop(): Unit = {
-
+    /**
+     * unsubscribe to the cluster events
+     */
     cluster.unsubscribe(self)
 
+    /**
+     * cancel the ticks once the actor stopped
+     */
     tickTask.cancel()
-
   }
 
   import context.dispatcher
 
   /**
-   *
+   * start ticks with a delay of 2 seconds and 10 seconds of delay between 2 ticks
    */
   val tickTask = context.system.scheduler.schedule(2.seconds, 10.seconds, self, "tick")
 
   /**
-   *
+   * Set containing registered node address (these nodes are Akka Storage System instances)
    */
   var nodes = Set.empty[Address]
 
   /**
-   *
+   * Integer seq
    */
   var seq = 0
 
   /**
-   *
+   * Receive method overridden
    * @return
    */
   override def receive = {
@@ -82,8 +87,10 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
       log.info("sending request")
 
+      //pick the random Akka Storage Service Instance
       val address = nodes.toIndexedSeq(ThreadLocalRandom.current.nextInt(nodes.size))
 
+      //
       val service = context.actorSelection(RootActorPath(address) / servicePathElements)
 
       //val random = ThreadLocalRandom.current().nextInt(1, 10)
@@ -135,25 +142,15 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
  * Wraper object for the Cluster bootstrap code
  *
  */
-
-/**
- *
- */
 object Starter {
 
   /**
-   *
    * @param args
    */
   def main(args: Array[String]): Unit = {
 
     /**
      * Getting the actor system by the name `ClusterSystem`
-     *
-     */
-
-    /**
-     *
      */
     val system = ActorSystem("ClusterSystem")
 
