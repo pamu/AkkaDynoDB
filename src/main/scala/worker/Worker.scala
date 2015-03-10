@@ -37,15 +37,15 @@ class Worker extends Actor with ActorLogging {
 
     case Entry(key, value) =>
       cache += (key -> value)
-      log.info(s"entry request [${cache.mkString(", ")}]")
+      log.info(s"entry request ${Entry(key, value)} => [${cache.mkString(", ")}]")
 
     case Get(key) =>
       sender() ! cache.get(key)
-      log.info(s"get request [${cache.mkString(", ")}]")
+      log.info(s"get request ${Get(key)} => [${cache.mkString(", ")}]")
 
     case Evict(key) =>
       cache -= key
-      log.info(s"evict request [${cache.mkString(", ")}]")
+      log.info(s"evict request ${Evict(key)} => [${cache.mkString(", ")}]")
   }
 }
 
