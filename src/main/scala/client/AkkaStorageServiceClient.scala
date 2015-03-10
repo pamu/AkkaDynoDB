@@ -2,8 +2,11 @@ package client
 
 import akka.actor._
 import akka.cluster.Cluster
-import akka.cluster.ClusterEvent.{ReachabilityEvent, MemberEvent}
+import akka.cluster.ClusterEvent._
+import akka.cluster.protobuf.msg.ClusterMessages.MemberStatus
+import worker.Worker.{Get, Entry}
 import scala.concurrent.duration._
+import scala.concurrent.forkjoin.ThreadLocalRandom
 
 /**
  * Created by android on 10/3/15.
@@ -36,8 +39,22 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
   override def receive = {
     case "tick" if nodes.isEmpty => {
-
+      val address = nodes.toIndexedSeq(ThreadLocalRandom.current.nextInt(nodes.size))
+      val service = context.actorSelection(RootActorPath(address) / servicePathElements)
+      val random = ThreadLocalRandom.current().nextInt(1, 10)
+      if(random % 2 == 0)
+        service ! Entry(s"name$random", s"pamu$random")
+      else
+        service ! Get(s"name$random")
     }
+    case state: CurrentClusterState =>
+      nodes = state.members.collect{
+        case member if member.hasRole("worker") && member.status == MemberStatus.Up => member.address
+      }
+    case MemberUp(member) if member.hasRole("worker") => nodes += member.address
+    case other: MemberEvent                           => nodes -= other.member.address
+    case UnreachableMember(member)                    => nodes -= member.address
+    case ReachableMember(member)                      => nodes += member.address
   }
 }
 
