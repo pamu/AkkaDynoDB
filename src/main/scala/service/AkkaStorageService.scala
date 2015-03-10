@@ -34,7 +34,7 @@ object Starter {
     val port = if(args.isEmpty) "0" else args(0)
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").withFallback(
       ConfigFactory.parseString("akka.cluster.roles = [store]")).withFallback(
-        ConfigFactory.load("ass"))
+        ConfigFactory.load("rss"))
 
     val system = ActorSystem("ClusterSystem", config)
 
