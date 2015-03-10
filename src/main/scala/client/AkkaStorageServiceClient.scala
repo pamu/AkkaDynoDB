@@ -13,7 +13,6 @@ import scala.concurrent.forkjoin.ThreadLocalRandom
  */
 
 class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogging {
-  import worker._
 
   val cluster = Cluster(context.system)
 
@@ -30,6 +29,7 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
   override def postStop(): Unit = {
     cluster.unsubscribe(self)
+    tickTask.cancel()
   }
 
   import context.dispatcher
@@ -43,9 +43,9 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
       val service = context.actorSelection(RootActorPath(address) / servicePathElements)
       val random = ThreadLocalRandom.current().nextInt(1, 10)
       if(random % 2 == 0)
-        service ! Entry(s"name$random", s"pamu$random")
+        service ! worker.Worker.Entry(s"name$random", s"pamu$random")
       else
-        service ! Get(s"name$random")
+        service ! worker.Worker.Get(s"name$random")
     }
     case state: CurrentClusterState =>
       nodes = state.members.collect{
@@ -58,9 +58,12 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
   }
 }
 
+/** Wraper object for the Cluster bootstrap code */
 object Starter {
   def main(args: Array[String]): Unit = {
-    //start the ass client
-
+    /**Getting the actor system by the name `ClusterSystem` */
+    val system = ActorSystem("ClusterSystem")
+    //start the client actor
+    system.actorOf(Props(classOf[AkkaStorageServiceClient], "/user/akkaStorageService"), "client")
   }
 }
