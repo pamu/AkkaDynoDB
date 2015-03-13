@@ -102,7 +102,10 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
       val random = seq
 
-      if(seq % 2 == 0) {
+      /**
+       * send the requests from the client to the nodes
+       */
+      if(1 == 0) {
 
         log.info("{}", worker.Worker.Entry(s"key$random", s"value$random").toString)
 
@@ -118,6 +121,9 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
     }
 
+    /**
+     * Knowing the cluster state
+     */
     case state: CurrentClusterState =>
 
       nodes = state.members.collect{
@@ -126,12 +132,24 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
 
       }
 
+    /**
+     * Worker id up
+     */
     case MemberUp(member) if member.hasRole("worker") => nodes += member.address
 
+    /**
+     * some other events
+     */
     case other: MemberEvent                           => nodes -= other.member.address
 
+    /**
+     * Worker unreachable
+     */
     case UnreachableMember(member)                    => nodes -= member.address
 
+    /**
+     * Worker is reachable
+     */
     case ReachableMember(member)                      => nodes += member.address
 
   }
@@ -154,8 +172,11 @@ object Starter {
      */
     val system = ActorSystem("ClusterSystem")
 
-    //start the client actor
-
+    /**
+     * Instantiating the Client
+     * actor with arguments
+     * and the argument is the path to the akka storage service
+     */
     system.actorOf(Props(classOf[AkkaStorageServiceClient], "/user/akkaStorageService"), "client")
 
   }

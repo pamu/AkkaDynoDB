@@ -20,7 +20,7 @@ object Tables {
   case class User(firstName: String, lastName: String, email: String,
                   time: Timestamp, id: Option[Long] = None)
 
-  /**
+  /** Users table configuration
    *
    * @param tag
    */
