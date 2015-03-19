@@ -23,6 +23,8 @@ Overall AkkaDynoDB looks like this
 
 ![AkkaDynoDB](http://blogs.swa-jkt.com/swa/brianduffy/files/2013/11/P2P_peer-to_peer.png)
 
+![AkkaDynoDB Node](https://www.dropbox.com/s/6dr0kzoq3qf24mc/clusternode.png?dl=0)
+
 ## **Reactive Systems**
  
 _**Reactive Systems**_ has these four traits
