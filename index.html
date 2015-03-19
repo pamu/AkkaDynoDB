@@ -109,25 +109,24 @@ Actors provide location transparency by which same semantics of communication th
 Running potential long running code inside the actor makes the actor deaf to the messages that are sent to it. So, it is recommend to
 wrap long running code inside a Future and execute it.Akka provides handy syntax to do the same.</p>
 
-<pre><code>
-  object MasterActor {
-      case object StartWork
+<div class="highlight highlight-scala"><pre>
+  <span class="pl-k">object</span> <span class="pl-en">MasterActor</span> {
+      <span class="pl-k">case</span> <span class="pl-k">object</span> <span class="pl-en">StartWork</span>
   }
 
-  class MasterActor extends Actor with ActorLogging {
-      def receive = {
-          case StartWork =&gt; {
-              val future = Future {
+  <span class="pl-k">class</span> <span class="pl-en">MasterActor</span> <span class="pl-k">extends</span> <span class="pl-e">Actor</span> <span class="pl-k">with</span> <span class="pl-e">ActorLogging</span> {
+      <span class="pl-k">def</span> <span class="pl-en">receive</span> <span class="pl-k">=</span> {
+          <span class="pl-k">case</span> <span class="pl-en">StartWork</span> <span class="pl-k">=&gt;</span> {
+              <span class="pl-k">val</span> <span class="pl-en">future</span> <span class="pl-k">=</span> <span class="pl-en">Future</span> {
                  longRunningCode
              }
-             future pipeTo self //pipe feature
+             future pipeTo <span class="pl-v">self</span> <span class="pl-c">//pipe feature</span>
           }
-          case _ =&gt; log.info("unknown message")
+          <span class="pl-k">case</span> _ <span class="pl-k">=&gt;</span> log.info(<span class="pl-s1"><span class="pl-pds">"</span>unknown message<span class="pl-pds">"</span></span>)
       }
-      def longRunningCode: Unit = Thread.sleep(1000000)
+      <span class="pl-k">def</span> <span class="pl-en">longRunningCode</span><span class="pl-k">:</span> <span class="pl-st">Unit</span> <span class="pl-k">=</span> <span class="pl-en">Thread</span>.sleep(<span class="pl-c1">1000000</span>)
   }
-
-</code></pre>
+</pre></div>
         </section>
 
         <aside id="sidebar">
