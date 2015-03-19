@@ -21,7 +21,7 @@ available and be resilient.
 
 Overall AkkaDynoDB looks like this
 
-![AkkaDynoDB](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png)
+![AkkaDynoDB](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/peer_peer.png)
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/clusternode.png)
 
