@@ -23,7 +23,7 @@ Overall AkkaDynoDB looks like this
 
 ![AkkaDynoDB](http://blogs.swa-jkt.com/swa/brianduffy/files/2013/11/P2P_peer-to_peer.png)
 
-![AkkaDynoDB Node](https://www.dropbox.com/s/6dr0kzoq3qf24mc/clusternode.png?dl=0)
+![AkkaDynoDB Node](http://weill.cornell.edu/its/security/assets_c/2012/02/500px-P2P-network.svg-thumb-497xauto-3222.png)
 
 ## **Reactive Systems**
  
