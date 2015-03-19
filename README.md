@@ -24,9 +24,13 @@ Overall AkkaDynoDB looks like this
 ![AkkaDynoDB](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png)
 
 
-Single Node of Cluster
+Interactions of single Node of Cluster
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node.png)
+
+Node in detail
+
+![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node_detail.png)
 
 
 ## **Reactive Systems**
