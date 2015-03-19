@@ -1,57 +1,152 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Akkadynodb : Dynamo like distributed database built using Akka Cluster">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Akkadynodb</title>
+    <title>Akkadynodb by pamu</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Akkadynodb</h1>
+        <h2>Dynamo like distributed database built using Akka Cluster</h2>
+        <a href="https://github.com/pamu/AkkaDynoDB" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/pamu/AkkaDynoDB">View on GitHub</a>
-
-          <h1 id="project_title">Akkadynodb</h1>
-          <h2 id="project_tagline">Dynamo like distributed database built using Akka Cluster</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/pamu/AkkaDynoDB/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/pamu/AkkaDynoDB/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a id="akkadynodbreactive-storage-service" class="anchor" href="#akkadynodbreactive-storage-service" aria-hidden="true"><span class="octicon octicon-link"></span></a>AkkaDynoDB(Reactive Storage Service)</h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="akkadynodb-reactive-storage-service" class="anchor" href="#akkadynodb-reactive-storage-service" aria-hidden="true"><span class="octicon octicon-link"></span></a>AkkaDynoDB (Reactive Storage Service)</h1>
 
 <p>Dynamo like distributed database built using Akka Cluster</p>
 
-<p>Akka Cluster Introduction</p>
+<h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Introduction</strong>
+</h2>
 
-<p>Intro
-Akka Cluster provides a fault-tolerant decentralized peer-to-peer based cluster membership service with no single point of failure or single point of bottleneck. It does this using gossip protocols and an automatic failure detector.</p>
-      </section>
+<p><em><strong>AkkaDynoDB</strong></em> is a <em>reactive</em> <em>storage</em> <em>service</em> inspired from the Amazon dynamo distributed database
+which is Highly available, scalable and resilient database <a href="http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf">All Things distributed Paper</a>.
+With changing requirements of enterprise applications the way we build applications has been changing. With increasing number of
+devices that connect to the internet the traffic per server has drastically changed over years and its going to increase much more in the
+near future with the emergence of Internet of things(IOT). In order to cater to the changing requirements which cannot be handled by traditional architectures
+many enterprises started adopting distributed architectures to spread load over large number of machines and handle user requests. These applications should also
+handle data effectively and offer reliability to its users. As the number of users increasing the applications must also scalable well 
+according to the need. Not only scalability and reliability users also expect 100% availability that means 0 down times even in case of 
+database maintenance and data migration. In order to offer these essential features enterprises have been adopting certain best practices and techniques from 
+different researches. <em><strong>Reactive design principles</strong></em> basically convey these best practices and how systems should be built from ground up to be scalable,
+available and be resilient.</p>
+
+<h2>
+<a id="reactive-systems" class="anchor" href="#reactive-systems" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Reactive Systems</strong>
+</h2>
+
+<p><em><strong>Reactive Systems</strong></em> has these four traits</p>
+
+<ol>
+<li><p>Responsive     (Available in a responding state)</p></li>
+<li><p>Resilient      (Fault tolerant)</p></li>
+<li><p>Elastic        (Scalable)</p></li>
+<li><p>Message Driven (Communicate by sending messages i.e core to distribution)</p></li>
+</ol>
+
+<p>Please read <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a> to know about what is to be reactive.</p>
+
+<h2>
+<a id="akka" class="anchor" href="#akka" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Akka</strong>
+</h2>
+
+<p><em><strong>Akka</strong></em> as mentioned here <a href="http://akka.io">akka.io</a> is a toolkit and runtime for building </p>
+
+<ol>
+<li><p>Highly Concurrent</p></li>
+<li><p>Distributed</p></li>
+<li><p>Resilient</p></li>
+<li><p>Message-Driven  applications on JVM (Java Virtual Machine)</p></li>
+</ol>
+
+<p>Akka adheres to the reactive principles and offers abstractions to deal with concurrency, distribution and fault tolerance.</p>
+
+<ol>
+<li><p>For concurrency Akka offers Scala Futures and Agents.     (Helps Scale up)</p></li>
+<li><p>For Distribution and Remoting it offers Actors.           (Helps Scale Out)</p></li>
+<li><p>For Fault tolerance Actor Supervision.                    (Deal with Failure)</p></li>
+</ol>
+
+<p>Note: The above mentioned is not exhaustive list of what akka offers. Please visit <a href="http://akka.io">Akka Website</a> for more.</p>
+
+<p>More about actors <a href="http://arxiv.org/pdf/1008.1459.pdf">Actor Model</a>, <a href="http://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-194.pdf">Actor Model</a>.</p>
+
+<h2>
+<a id="actor" class="anchor" href="#actor" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Actor</strong>
+</h2>
+
+<p><em><strong>Actor Model</strong></em> of concurrent computation provides a primitive called as <strong>Actor</strong>. </p>
+
+<p>Actor is an entity which can do these three things</p>
+
+<ol>
+<li><p>Communicate with message passing (can communicate)</p></li>
+<li><p>Create new actors (Can create new actors)</p></li>
+<li><p>decide what to do with next message (Can change its behaviour on receiving a message)</p></li>
+</ol>
+
+<p>Actors can also have mutable state and can take local decisions. Actors can be used for distributing work among different machines.
+With the help of actors work can be distributed among other worker actors and performed in a concurrent and distributed manner.
+Actors provide location transparency by which same semantics of communication that are used for local actors can be used with remote actors.
+Running potential long running code inside the actor makes the actor deaf to the messages that are sent to it. So, it is recommend to
+wrap long running code inside a Future and execute it.Akka provides handy syntax to do the same.</p>
+
+<pre><code>
+  object MasterActor {
+      case object StartWork
+  }
+
+  class MasterActor extends Actor with ActorLogging {
+      def receive = {
+          case StartWork =&gt; {
+              val future = Future {
+                 longRunningCode
+             }
+             future pipeTo self //pipe feature
+          }
+          case _ =&gt; log.info("unknown message")
+      }
+      def longRunningCode: Unit = Thread.sleep(1000000)
+  }
+
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/pamu/AkkaDynoDB/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/pamu/AkkaDynoDB/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/pamu/AkkaDynoDB"></a> is maintained by <a href="https://github.com/pamu">pamu</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Akkadynodb maintained by <a href="https://github.com/pamu">pamu</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
 </html>
