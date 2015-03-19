@@ -18,9 +18,13 @@ _Reactive_ _design_ _principles_ are the basically convey these best practices a
 available and be resilient.
  
 **Reactive Systems** has these four traits
+
 1. Responsive     (Available in a responding state)
+
 2. Resilient      (Fault tolerant)
+
 3. Elastic        (Scalable)
+
 4. Message Driven (Communicate by sending messages i.e core to distribution)
 
 Please read [Reactive Manifesto](http://www.reactivemanifesto.org/) to know about what is to be reactive.
