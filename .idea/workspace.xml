@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4184c5b-ae3b-4b49-aefe-e4e2e06a649f" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/images/Peer_to_peer.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/images/clusternode.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/images/peer_peer.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/ass.png" afterPath="$PROJECT_DIR$/images/todo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/cluster.png" afterPath="$PROJECT_DIR$/images/cluster.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -71,22 +76,22 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.548718" vertical-offset="292" max-vertical-offset="2772">
-              <caret line="23" column="87" selection-start-line="23" selection-start-column="87" selection-end-line="23" selection-end-column="87" />
+            <state vertical-scroll-proportion="0.6615385" vertical-offset="292" max-vertical-offset="2772">
+              <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="peer_peer.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/images/peer_peer.png">
+      <file leaf-file-name="ring.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/images/ring.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Peer_to_peer.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/images/Peer_to_peer.jpg">
+      <file leaf-file-name="todo.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/images/todo.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -1120,17 +1125,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/images/ring.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/todo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/images/cluster.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/images/Peer_to_peer.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/images/peer_peer.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -1140,8 +1145,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.548718" vertical-offset="292" max-vertical-offset="2772">
-          <caret line="23" column="87" selection-start-line="23" selection-start-column="87" selection-end-line="23" selection-end-column="87" />
+        <state vertical-scroll-proportion="0.6615385" vertical-offset="292" max-vertical-offset="2772">
+          <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
           <folding />
         </state>
       </provider>
