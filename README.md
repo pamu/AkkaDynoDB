@@ -14,7 +14,7 @@ many enterprises started adopting distributed architectures to spread load over 
 handle data effectively and offer reliability to its users. As the number of users increasing the applications must also scalable well 
 according to the need. Not only scalability and reliability users also expect 100% availability that means 0 down times even in case of 
 database maintenance and data migration. In order to offer these essential features enterprises have been adopting certain best practices and techniques from 
-different researches. _**Reactive design principles**_ are the basically convey these best practices and how systems should be built from ground up to be scalable,
+different researches. _**Reactive design principles**_ basically convey these best practices and how systems should be built from ground up to be scalable,
 available and be resilient.
 
 ## **Reactive Systems**
@@ -67,7 +67,31 @@ Actor is an entity which can do these three things
 
 3. decide what to do with next message (Can change its behaviour on receiving a message)
 
-Actors can also have mutable state and can take local decisions.
+Actors can also have mutable state and can take local decisions. Actors can be used for distributing work among different machines.
+With the help of actors work can be distributed among other worker actors and performed in a concurrent and distributed manner.
+Actors provide location transparency by which same semantics of communication that are used for local actors can be used with remote actors.
+Running potential long running code inside the actor makes the actor deaf to the messages that are sent to it. So, it is recommend to
+wrap long running code inside a Future and execute it.Akka provides handy syntax to do the same.
+
+`
+object MasterActor {
+    case object StartWork
+}
+
+class MasterActor extends Actor with ActorLogging {
+    def receive = {
+        case StartWork => {
+            val future = Future {
+                longRunningCode
+            }
+            
+            future pipeTo self //pipe feature
+        }
+        case _ => log.info("unknown message")
+    }
+    def longRunningCode: Unit = Thread.sleep(1000000)
+}
+`
 
 
  
