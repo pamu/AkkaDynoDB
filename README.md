@@ -75,38 +75,27 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
 
 
   ```
-  object MasterActor {
-
-      case object StartWork
-
-  } 
   
+  object MasterActor {
+      case object StartWork
+  }
 
   class MasterActor extends Actor with ActorLogging {
-
       def receive = {
-
           case StartWork => {
-
               val future = Future {
-
                  longRunningCode
-
              }
-
              future pipeTo self //pipe feature
-
           }
-
           case _ => log.info("unknown message")
-
       }
-
       def longRunningCode: Unit = Thread.sleep(1000000)
-
   }
   
   ```
+  
+  
 
 
  
