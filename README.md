@@ -73,35 +73,35 @@ Actors provide location transparency by which same semantics of communication th
 Running potential long running code inside the actor makes the actor deaf to the messages that are sent to it. So, it is recommend to
 wrap long running code inside a Future and execute it.Akka provides handy syntax to do the same.
 
-`object MasterActor {`
+`object MasterActor {
 
-    `case object StartWork`
+    case object StartWork
      
-`}`
+}`
 
-`class MasterActor extends Actor with ActorLogging {`
+`class MasterActor extends Actor with ActorLogging {
 
-    `def receive = {`
+    def receive = {
      
-        `case StartWork => {`
+        case StartWork => {
          
-            `val future = Future {`
+            val future = Future {
              
-               `longRunningCode`
+               longRunningCode
                  
-           `}`
+           }
              
-           `future pipeTo self //pipe feature`
+           future pipeTo self //pipe feature
              
-        `}`
+        }
          
-        `case _ => log.info("unknown message")`
+        case _ => log.info("unknown message")
          
-    `}`
+    }
      
-    `def longRunningCode: Unit = Thread.sleep(1000000)`
+    def longRunningCode: Unit = Thread.sleep(1000000)
      
-`} `
+}`
 
 
  
