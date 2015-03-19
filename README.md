@@ -104,7 +104,9 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
 
       def longRunningCode: Unit = Thread.sleep(1000000)
 
-  } ```
+  }
+  
+  ```
 
 
  
