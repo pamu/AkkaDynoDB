@@ -19,6 +19,10 @@ available and be resilient.
 
 ## **AkkaDynoDB Architecture**
 
+To do
+
+[To do](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/todo.png)
+
 Overall AkkaDynoDB looks like this
 
 ![AkkaDynoDB](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png)
@@ -32,6 +36,10 @@ Node in detail
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node_detail.png)
 
+
+Consistent Hashing Router
+
+![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png)
 
 ## **Reactive Systems**
  
