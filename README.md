@@ -41,11 +41,11 @@ _**Akka**_ as mentioned here [akka.io](http://akka.io) is a toolkit and runtime 
 
 Akka adheres to the reactive principles and offers abstractions to deal with concurrency, distribution and fault tolerance.
 
-1. For concurrency Akka offers Scala Futures and Agents.    (Helps Scale up)
+1. For concurrency Akka offers Scala Futures and Agents.     (Helps Scale up)
 
-2. For Distribution and Remoting it offers Actors.          (Helps Scale Out)
+2. For Distribution and Remoting it offers Actors.           (Helps Scale Out)
 
-3. For Fault tolerance Actor Supervision.                   (Deal with Failure)
+3. For Fault tolerance Actor Supervision.                    (Deal with Failure)
 
 Note: The above mentioned is not exhaustive list of what akka offers. Please visit (Akka.io)[http://akka.io] for more.
 
