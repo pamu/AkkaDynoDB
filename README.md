@@ -21,7 +21,7 @@ available and be resilient.
 
 Overall AkkaDynoDB looks like this
 
-!(AkkaDynoDB)[http://www.thebookmyproject.com/wp-content/uploads/2011/10/Peer_to_peer.jpg]
+![AkkaDynoDB](http://www.thebookmyproject.com/wp-content/uploads/2011/10/Peer_to_peer.jpg)
 
 ## **Reactive Systems**
  
