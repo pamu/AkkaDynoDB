@@ -17,7 +17,7 @@ according to the need. Not only scalability and reliability users also expect 10
  _Reactive_ _design_ _principles_ are the basically convey these best practices and how systems should be built from ground up to be scalable, 
  available and be resilient. 
  
- #Reactive #Systems has these four traits 
+ **Reactive Systems** has these four traits
  
  1. Responsive     (Available in a responding state)
  2. Resilient      (Fault tolerant)
