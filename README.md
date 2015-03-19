@@ -95,6 +95,10 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
   
   ```
   
+## **Akka Cluster** [Akka Cluster](http://akka.io/docs)
+
+
+  
   
 
 
