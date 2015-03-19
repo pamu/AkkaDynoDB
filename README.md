@@ -74,7 +74,7 @@ Running potential long running code inside the actor makes the actor deaf to the
 wrap long running code inside a Future and execute it.Akka provides handy syntax to do the same.
 
 
-  ```
+  ```scala
   
   object MasterActor {
       case object StartWork
