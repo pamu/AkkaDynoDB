@@ -19,9 +19,9 @@ available and be resilient.
 
 ## **AkkaDynoDB Architecture**
 
-Each node of AkkaDynoDB looks like this
+Overall AkkaDynoDB looks like this
 
-!(AkkaDynoDB)[https://www.dropbox.com/s/6dr0kzoq3qf24mc/clusternode.png?dl=0]
+!(AkkaDynoDB)[http://www.thebookmyproject.com/wp-content/uploads/2011/10/Peer_to_peer.jpg]
 
 ## **Reactive Systems**
  
