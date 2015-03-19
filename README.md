@@ -14,10 +14,10 @@ many enterprises started adopting distributed architectures to spread load over 
 handle data effectively and offer reliability to its users. As the number of users increasing the applications must also scalable well 
 according to the need. Not only scalability and reliability users also expect 100% availability that means 0 down times even in case of 
 database maintenance and data migration. In order to offer these essential features enterprises have been adopting certain best practices and techniques from 
-different researches. _Reactive_ _design_ _principles_ are the basically convey these best practices and how systems should be built from ground up to be scalable,
+different researches. _**Reactive design principles**_ are the basically convey these best practices and how systems should be built from ground up to be scalable,
 available and be resilient.
  
-**Reactive Systems** has these four traits
+_**Reactive Systems**_ has these four traits
 
 1. Responsive     (Available in a responding state)
 
@@ -37,9 +37,9 @@ _**Akka**_ as mentioned here [akka.io](http://akka.io) is a toolkit and runtime 
 
 3. Resilient
 
-4. Message-Driven
+4. Message-Driven  applications on JVM (Java Virtual Machine)
 
-application on JVM (Java Virtual Machine)
+
 
 
  
