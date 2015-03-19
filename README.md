@@ -39,6 +39,18 @@ _**Akka**_ as mentioned here [akka.io](http://akka.io) is a toolkit and runtime 
 
 4. Message-Driven  applications on JVM (Java Virtual Machine)
 
+Akka adheres to the reactive principles and offers abstractions to deal with concurrency, distribution and fault tolerance.
+
+1. For concurrency Akka offers Scala Futures and Agents                                             (Scale UP)
+
+2. For Distribution and Remoting it offers Actors (Actor Model)[http://arxiv.org/pdf/1008.1459.pdf].(Scale Out)
+
+3. For Fault tolerance Actor Supervision.                                                           (Deal with Failure)
+
+Note: The above mentioned is not exhaustive list of what akka offers. Please visit (Akka.io)[http://akka.io] for more.
+
+
+
 
 
 
