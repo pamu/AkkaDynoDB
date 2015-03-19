@@ -17,6 +17,12 @@ database maintenance and data migration. In order to offer these essential featu
 different researches. _**Reactive design principles**_ basically convey these best practices and how systems should be built from ground up to be scalable,
 available and be resilient.
 
+## **AkkaDynoDB Architecture**
+
+Each node of AkkaDynoDB looks like this
+
+!(AkkaDynoDB)[https://www.dropbox.com/s/6dr0kzoq3qf24mc/clusternode.png?dl=0]
+
 ## **Reactive Systems**
  
 _**Reactive Systems**_ has these four traits
@@ -95,7 +101,14 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
   
   ```
   
-## **Akka Cluster** [Akka Cluster](http://akka.io/docs)
+## **Akka Cluster** 
+
+Akka Cluster 
+
+
+
+Please have a look at Akka Cluster documentation here [Akka Cluster](http://akka.io/docs)
+
 
 
   
