@@ -21,7 +21,7 @@ available and be resilient.
 
 To do
 
-[To do](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/todo.png)
+![To do](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/todo.png)
 
 Overall AkkaDynoDB looks like this
 
