@@ -16,6 +16,8 @@ according to the need. Not only scalability and reliability users also expect 10
 database maintenance and data migration. In order to offer these essential features enterprises have been adopting certain best practices and techniques from 
 different researches. _**Reactive design principles**_ are the basically convey these best practices and how systems should be built from ground up to be scalable,
 available and be resilient.
+
+## **Reactive Systems**
  
 _**Reactive Systems**_ has these four traits
 
@@ -28,6 +30,8 @@ _**Reactive Systems**_ has these four traits
 4. Message Driven (Communicate by sending messages i.e core to distribution)
 
 Please read [Reactive Manifesto](http://www.reactivemanifesto.org/) to know about what is to be reactive.
+
+## **Akka**
 
 _**Akka**_ as mentioned here [akka.io](http://akka.io) is a toolkit and runtime for building 
 
@@ -51,8 +55,19 @@ Note: The above mentioned is not exhaustive list of what akka offers. Please vis
 
 More about actors [Actor Model](http://arxiv.org/pdf/1008.1459.pdf), [Actor Model](http://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-194.pdf).
 
+## **Actor**
 
+_**Actor Model**_ of concurrent computation provides a primitive called as **Actor**. 
 
+Actor is an entity which can do these three things
+
+1. Communicate with message passing (can communicate)
+
+2. Create new actors (Can create new actors)
+
+3. decide what to do with next message (Can change its behaviour on receiving a message)
+
+Actors can also have mutable state and can take local decisions.
 
 
  
