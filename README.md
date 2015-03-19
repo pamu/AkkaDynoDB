@@ -79,11 +79,9 @@ object MasterActor {
     case object StartWork
      
 }
-
 `
 
 `
-
 class MasterActor extends Actor with ActorLogging {
 
     def receive = {
@@ -107,7 +105,6 @@ class MasterActor extends Actor with ActorLogging {
     def longRunningCode: Unit = Thread.sleep(1000000)
      
 }
-
 `
 
 
