@@ -102,6 +102,7 @@ Akka Cluster
 
 Please have a look at Akka Cluster documentation here [Akka Cluster](http://akka.io/docs)
 
+
 ## **AkkaDynoDB Architecture**
 
 To do
@@ -135,7 +136,7 @@ Each node in the cluster consists of these three components
 
 ## **Service Actor**
 
-__**Service Actor**__ receives all the client requests to persist and retrieve the data. Then the request is
+_**Service Actor**_ receives all the client requests to persist and retrieve the data. Then the request is
 sent to the Consistent Hashing router. The request consists of the Key which helps the Router to dispatch
 the request to the final node in which the data is stored. If the key belongs to the Node itself
 then the request is sent to the Storage Actor itself and will not be routed.
@@ -143,7 +144,7 @@ then the request is sent to the Storage Actor itself and will not be routed.
 
 ## **Consistent Hashing Router**
 
-This is inside the __**Service Actor**__ . The responsibility of the router is to take the request and dispatch
+This is inside the _**Service Actor**_ . The responsibility of the router is to take the request and dispatch
 it to the corresponding node which is responsible for handling the data. This is done by using the key in the request.
 Also Consistent Hashing Router helps in both read and write request scalability there by preventing hot stops in the system.
 
@@ -151,7 +152,7 @@ Also Consistent Hashing Router helps in both read and write request scalability 
 
 ## **Storage Actor**
 
-__**Storage Actor**__ is responsible for persisting the data and retrieving the data that is requested by the
+_**Storage Actor**_ is responsible for persisting the data and retrieving the data that is requested by the
 Service Actor and this request is dispatched by the consistent hashing router in the service node.
 
 Consistent Hashing Router
