@@ -27,15 +27,47 @@ Overall AkkaDynoDB looks like this
 
 ![AkkaDynoDB](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png)
 
+Each Node in the cluster sends heart beats to every other node in the cluster to know whether a particluar
+node is dead or alive.AkkaDynoDb uses Akka Cluster so, all that applies to Akka Cluster also applies to
+AkkaDynoDB
+
 
 Interactions of single Node of Cluster
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node.png)
 
+The above picture depicts the interactions of the single node with other nodes. All nodes are in consistent hashing ring
+
 Node in detail
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node_detail.png)
 
+Each node in the cluster consists of these three components
+
+ 1. Service Actor
+ 2. ConsistentHashing Router in the Service Actor
+ 3. Storage Actor which persists the data into store
+ 
+## **Service Actor**
+
+__**Service Actor**__ receives all the client requests to persist and retrieve the data. Then the request is 
+sent to the Consistent Hashing router. The request consists of the Key which helps the Router to dispatch
+the request to the final node in which the data is stored. If the key belongs to the Node itself
+then the request is sent to the Storage Actor itself and will not be routed.
+
+
+## **Consistent Hashing Router**
+
+This is inside the __**Service Actor**__ . The responsibility of the router is to take the request and dispatch 
+it to the corresponding node which is responsible for handling the data. This is done by using the key in the request.
+Also Consistent Hashing Router helps in both read and write request scalability there by preventing hot stops in the system.
+
+
+
+## **Storage Actor**
+
+_**Storage Actor**_ is responsible for persisting the data and retrieving the data that is requested by the
+Service Actor and this request is dispatched by the consistent hashing router in the service node.
 
 Consistent Hashing Router
 
@@ -122,7 +154,6 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
 ## **Akka Cluster** 
 
 Akka Cluster 
-
 
 
 Please have a look at Akka Cluster documentation here [Akka Cluster](http://akka.io/docs)
