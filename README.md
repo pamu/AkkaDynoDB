@@ -160,15 +160,16 @@ Also Consistent Hashing Router helps in both read and write request scalability 
 _**Storage Actor**_ is responsible for persisting the data and retrieving the data that is requested by the
 Service Actor and this request is dispatched by the consistent hashing router in the service node.
 
-## **Consistent Hashing Router**
-
-![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png)
-
+## **Router**
 
 Routers in Akka helps in balancing/distribution the load on the system by dispatching the request to different worker
 actors based on some criteria.There are two kinds of routers 
 
 1. Pool Router (creates workers by itself)
 2. Group Router (Give created workers to the router, Group router does not create any worker actors by itself)
+
+## **Consistent Hashing**
+
+![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png)
 
 Consistent Hashing Router routes messages to workers based on Consistent Hashing Algorithm
