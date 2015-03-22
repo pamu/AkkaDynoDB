@@ -160,7 +160,7 @@ Also Consistent Hashing Router helps in both read and write request scalability 
 _**Storage Actor**_ is responsible for persisting the data and retrieving the data that is requested by the
 Service Actor and this request is dispatched by the consistent hashing router in the service node.
 
-Consistent Hashing Router
+## **Consistent Hashing Router**
 
 ![AkkaDynoDB Node](https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png)
 
