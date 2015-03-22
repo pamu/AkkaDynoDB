@@ -102,7 +102,7 @@ Akka Cluster
 
 Akka Cluster provides a fault tolerant decentralized peer-to-peer based cluster membership service with no 
 single point of failure or single point of bottleneck. It does this using gossip protocols and a automatic failure
-detector ![Akka Cluster Specification Into](http://doc.akka.io/docs/akka/snapshot/common/cluster.html#cluster)
+detector [Akka Cluster Specification Into](http://doc.akka.io/docs/akka/snapshot/common/cluster.html#cluster)
 
 Please have a look at Akka Cluster documentation here [Akka Cluster](http://akka.io/docs)
 
