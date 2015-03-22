@@ -1,36 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Akkadynodb by pamu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>Akkadynodb by pamu</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Akkadynodb</h1>
-        <p class="header">Dynamo like distributed database built using Akka Cluster</p>
+    <header>
+      <div class="inner">
+        <h1>Akkadynodb</h1>
+        <h2>Dynamo like distributed database built using Akka Cluster</h2>
+        <a href="https://github.com/pamu/AkkaDynoDB" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/pamu/AkkaDynoDB/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/pamu/AkkaDynoDB/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/pamu/AkkaDynoDB">View On GitHub</a></li>
-        </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/pamu">pamu</a></p>
-
-
-      </header>
-      <section>
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a id="akkadynodb-reactive-storage-service" class="anchor" href="#akkadynodb-reactive-storage-service" aria-hidden="true"><span class="octicon octicon-link"></span></a>AkkaDynoDB (Reactive Storage Service)</h1>
 
 <p>Dynamo like distributed database built using Akka Cluster</p>
@@ -50,30 +48,6 @@ according to the need. Not only scalability and reliability users also expect 10
 database maintenance and data migration. In order to offer these essential features enterprises have been adopting certain best practices and techniques from 
 different researches. <em><strong>Reactive design principles</strong></em> basically convey these best practices and how systems should be built from ground up to be scalable,
 available and be resilient.</p>
-
-<h2>
-<a id="akkadynodb-architecture" class="anchor" href="#akkadynodb-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>AkkaDynoDB Architecture</strong>
-</h2>
-
-<p>To do</p>
-
-<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/todo.png" alt="To do"></p>
-
-<p>Overall AkkaDynoDB looks like this</p>
-
-<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png" alt="AkkaDynoDB"></p>
-
-<p>Interactions of single Node of Cluster</p>
-
-<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node.png" alt="AkkaDynoDB Node"></p>
-
-<p>Node in detail</p>
-
-<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node_detail.png" alt="AkkaDynoDB Node"></p>
-
-<p>Consistent Hashing Router</p>
-
-<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png" alt="AkkaDynoDB Node"></p>
 
 <h2>
 <a id="reactive-systems" class="anchor" href="#reactive-systems" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Reactive Systems</strong>
@@ -148,9 +122,9 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
              }
              future pipeTo <span class="pl-v">self</span> <span class="pl-c">//pipe feature</span>
           }
-          <span class="pl-k">case</span> _ <span class="pl-k">=&gt;</span> log.info(<span class="pl-s1"><span class="pl-pds">"</span>unknown message<span class="pl-pds">"</span></span>)
+          <span class="pl-k">case</span> _ <span class="pl-k">=&gt;</span> log.info(<span class="pl-s"><span class="pl-pds">"</span>unknown message<span class="pl-pds">"</span></span>)
       }
-      <span class="pl-k">def</span> <span class="pl-en">longRunningCode</span><span class="pl-k">:</span> <span class="pl-st">Unit</span> <span class="pl-k">=</span> <span class="pl-en">Thread</span>.sleep(<span class="pl-c1">1000000</span>)
+      <span class="pl-k">def</span> <span class="pl-en">longRunningCode</span><span class="pl-k">:</span> <span class="pl-k">Unit</span> <span class="pl-k">=</span> <span class="pl-en">Thread</span>.sleep(<span class="pl-c1">1000000</span>)
   }
 </pre></div>
 
@@ -160,13 +134,92 @@ wrap long running code inside a Future and execute it.Akka provides handy syntax
 
 <p>Akka Cluster </p>
 
+<p>Akka Cluster provides a fault tolerant decentralized peer-to-peer based cluster membership service with no 
+single point of failure or single point of bottleneck. It does this using gossip protocols and a automatic failure
+detector <a href="http://doc.akka.io/docs/akka/snapshot/common/cluster.html#cluster">Akka Cluster Specification Into</a></p>
+
 <p>Please have a look at Akka Cluster documentation here <a href="http://akka.io/docs">Akka Cluster</a></p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+
+<h2>
+<a id="akkadynodb-architecture" class="anchor" href="#akkadynodb-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>AkkaDynoDB Architecture</strong>
+</h2>
+
+<p>To do</p>
+
+<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/todo.png" alt="To do"></p>
+
+<p>Overall AkkaDynoDB looks like this</p>
+
+<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/cluster.png" alt="AkkaDynoDB"></p>
+
+<p>Each Node in the cluster sends heart beats to every other node in the cluster to know whether a particluar
+node is dead or alive.AkkaDynoDb uses Akka Cluster so, all that applies to Akka Cluster also applies to
+AkkaDynoDB</p>
+
+<p>Interactions of single Node of Cluster</p>
+
+<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node.png" alt="AkkaDynoDB Node"></p>
+
+<p>The above picture depicts the interactions of the single node with other nodes. All nodes are in consistent hashing ring</p>
+
+<p>Node in detail</p>
+
+<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/node_detail.png" alt="AkkaDynoDB Node"></p>
+
+<p>Each node in the cluster consists of these three components</p>
+
+<ol>
+<li>Service Actor</li>
+<li>ConsistentHashing Router in the Service Actor</li>
+<li>Storage Actor which persists the data into store</li>
+</ol>
+
+<h2>
+<a id="service-actor" class="anchor" href="#service-actor" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Service Actor</strong>
+</h2>
+
+<p><em><strong>Service Actor</strong></em> receives all the client requests to persist and retrieve the data. Then the request is
+sent to the Consistent Hashing router. The request consists of the Key which helps the Router to dispatch
+the request to the final node in which the data is stored. If the key belongs to the Node itself
+then the request is sent to the Storage Actor itself and will not be routed.</p>
+
+<h2>
+<a id="consistent-hashing-router" class="anchor" href="#consistent-hashing-router" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Consistent Hashing Router</strong>
+</h2>
+
+<p>This is inside the <em><strong>Service Actor</strong></em> . The responsibility of the router is to take the request and dispatch
+it to the corresponding node which is responsible for handling the data. This is done by using the key in the request.
+Also Consistent Hashing Router helps in both read and write request scalability there by preventing hot stops in the system.</p>
+
+<h2>
+<a id="storage-actor" class="anchor" href="#storage-actor" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Storage Actor</strong>
+</h2>
+
+<p><em><strong>Storage Actor</strong></em> is responsible for persisting the data and retrieving the data that is requested by the
+Service Actor and this request is dispatched by the consistent hashing router in the service node.</p>
+
+<p>Consistent Hashing Router</p>
+
+<p><img src="https://raw.githubusercontent.com/pamu/AkkaDynoDB/master/images/ring.png" alt="AkkaDynoDB Node"></p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/pamu/AkkaDynoDB/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/pamu/AkkaDynoDB/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/pamu/AkkaDynoDB"></a> is maintained by <a href="https://github.com/pamu">pamu</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+
+  
   </body>
 </html>
