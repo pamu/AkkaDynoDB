@@ -4,7 +4,7 @@ import akka.actor.{Props, ActorSystem, Actor}
 import akka.routing.ConsistentHashingRouter.ConsistentHashableEnvelope
 import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
-import worker.Worker
+import storage.Worker
 
 /**
  * Created by android on 10/3/15.
@@ -55,7 +55,7 @@ object Starter {
     val system = ActorSystem("ClusterSystem", config)
 
     //start the worker actor which does the real storing stuff
-    system.actorOf(Props[Worker], name = "worker")
+    system.actorOf(Props[Worker], name = "storage")
 
     //starting akka storage service actor
     system.actorOf(Props[ReactiveStorageService], name = "reactiveStorageService")
