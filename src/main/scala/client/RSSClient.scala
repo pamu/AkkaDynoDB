@@ -1,9 +1,8 @@
 package client
 
 import akka.actor._
-import akka.cluster.Cluster
+import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent._
-import akka.cluster.protobuf.msg.ClusterMessages.MemberStatus
 import scala.concurrent.duration._
 import scala.concurrent.forkjoin.ThreadLocalRandom
 
@@ -15,7 +14,7 @@ import scala.concurrent.forkjoin.ThreadLocalRandom
  *
  * @param servicePath
  */
-class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogging {
+class RSSClient(servicePath: String) extends Actor with ActorLogging {
 
   /** Cluster ref to subscribe to cluster events
    * cluster companion object takes context.system
@@ -116,50 +115,23 @@ class AkkaStorageServiceClient(servicePath: String) extends Actor with ActorLogg
         log.info("{}", worker.Worker.Entry(s"key$random", s"value$random").toString)
 
         service ! worker.Worker.Get(s"name$random")
-
       }
-
     }
 
-    /**
-     * Knowing the cluster state
-     */
     case state: CurrentClusterState =>
-
-      nodes = state.members.collect{
-
+      nodes = state.members.collect {
         case member if member.hasRole("worker") && member.status == MemberStatus.Up => member.address
-
       }
-
-    /**
-     * Worker id up
-     */
     case MemberUp(member) if member.hasRole("worker") => nodes += member.address
-
-    /**
-     * some other events
-     */
     case other: MemberEvent                           => nodes -= other.member.address
-
-    /**
-     * Worker unreachable
-     */
     case UnreachableMember(member)                    => nodes -= member.address
-
-    /**
-     * Worker is reachable
-     */
     case ReachableMember(member)                      => nodes += member.address
 
   }
 
 }
 
-/**
- * Wraper object for the Cluster bootstrap code
- *
- */
+// Wrapper object for the Cluster bootstrap code
 object Starter {
 
   /**
@@ -177,7 +149,7 @@ object Starter {
      * actor with arguments
      * and the argument is the path to the akka storage service
      */
-    system.actorOf(Props(classOf[AkkaStorageServiceClient], "/user/akkaStorageService"), "client")
+    system.actorOf(Props(classOf[RSSClient], "/user/akkaStorageService"), "client")
 
   }
 }

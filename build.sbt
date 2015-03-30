@@ -1,8 +1,8 @@
 name := """AkkaDynoDB"""
 
-version := "1.0"
+version := "1.0.0"
 
-mainClass := Some("""worker.Starter""")
+sbtVersion := "0.13.8"
 
 libraryDependencies ++= Seq("com.typesafe.slick" %% "slick" % "2.1.0",
 							              "mysql" % "mysql-connector-java" % "5.1.34",

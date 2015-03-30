@@ -1,4 +1,4 @@
-package db
+package database
 
 /**
  * Created by android on 8/3/15.
