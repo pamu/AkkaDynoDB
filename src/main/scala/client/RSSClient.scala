@@ -25,7 +25,6 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
     cluster.subscribe(self, classOf[MemberEvent], classOf[ReachabilityEvent])
   }
 
-
   override def postStop(): Unit = {
     cluster.unsubscribe(self)
     tickTask.cancel()

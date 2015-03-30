@@ -4,7 +4,7 @@ import akka.actor.{Props, ActorSystem, Actor}
 import akka.routing.ConsistentHashingRouter.ConsistentHashableEnvelope
 import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
-import storage.Worker
+import storage.StorageNode
 
 /**
  * Created by android on 10/3/15.
@@ -13,9 +13,9 @@ import storage.Worker
 
 class ReactiveStorageService extends Actor {
 
-  val workerRouter = context.actorOf(FromConfig.props(Props[Worker]), name = "workerRouter")
+  val workerRouter = context.actorOf(FromConfig.props(Props[StorageNode]), name = "workerRouter")
   // import the worker node message get, entry, evict
-  import Worker._
+  import StorageNode._
 
   // actor receive method
   override def receive = {
@@ -48,14 +48,14 @@ object Starter {
 
     //read the configuration in the file rss.conf
     val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").withFallback(
-      ConfigFactory.parseString("akka.cluster.roles = [worker]")).withFallback(
+      ConfigFactory.parseString("akka.cluster.roles = [storage]")).withFallback(
         ConfigFactory.load("rss"))
 
     //get the ref of the actor system
     val system = ActorSystem("ClusterSystem", config)
 
     //start the worker actor which does the real storing stuff
-    system.actorOf(Props[Worker], name = "storage")
+    system.actorOf(Props[StorageNode], name = "storage")
 
     //starting akka storage service actor
     system.actorOf(Props[ReactiveStorageService], name = "reactiveStorageService")
