@@ -1,8 +1,10 @@
 package database
 
+/**
 import java.sql.Timestamp
 
 import scala.slick.driver.MySQLDriver.simple._
+**/
 
 /**
  * Created by android on 11/3/15.
