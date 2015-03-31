@@ -1,27 +1,48 @@
 package database
 
-/**
-import java.sql.Timestamp
-
-import scala.slick.driver.MySQLDriver.simple._
-**/
+import models.{ Versionable, Identifiable }
 
 /**
- * Created by android on 11/3/15.
+ * Defines Slick table extensions.
+ * To be mixed-in into a cake.
  */
+trait Tables { this: Profile =>
 
-/**
-object Tables {
-  case class User(firstName: String, lastName: String, email: String,
-                  time: Timestamp, id: Option[Long] = None)
-  class Users(tag: Tag) extends Table[User](tag, "users") {
-    def firstName = column[String]("firstName", O.NotNull)
-    def lastName = column[String]("lastName", O.NotNull)
-    def email = column[String]("email", O.NotNull)
-    def time = column[Timestamp]("timestamp", O.NotNull)
-    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-    def * = (firstName, lastName, email, time, id.?) <> (User.tupled, User.unapply)
+  import jdbcDriver.simple._
+
+  trait IdColumn[I] {
+    def id: Column[I]
   }
-  val users = TableQuery[Users]
+
+  trait VersionColumn {
+    def version: Column[Long]
+  }
+
+  /** Table extension to be used with a Model that has an Id. */
+  abstract class IdTable[M, I](tag: Tag, schemaName: Option[String], tableName: String)(implicit val colType: BaseColumnType[I])
+    extends Table[M](tag, schemaName, tableName) with IdColumn[I] {
+
+    /** Constructor without schemaName */
+    def this(tag: Tag, tableName: String)(implicit mapping: BaseColumnType[I]) = this(tag, None, tableName)
+  }
+
+  /** Table extension to be used with a Model that has an Id and version (optimistic locking). */
+  abstract class IdVersionTable[M, I](tag: Tag, schemaName: Option[String], tableName: String)(override implicit val colType: BaseColumnType[I])
+    extends IdTable[M, I](tag, schemaName, tableName)(colType) with VersionColumn {
+
+    def this(tag: Tag, tableName: String)(implicit mapping: BaseColumnType[I]) = this(tag, None, tableName)
+  }
+
+  /**
+   * Type alias for [[IdTable]]s mapping [[models.Identifiable]]s
+   * Id type is mapped via type projection of Identifiable#Id
+   */
+  type EntityTable[M <: Identifiable[M]] = IdTable[M, M#Id]
+
+  /**
+   * Type alias for [[IdTable]]s mapping [[models.Identifiable]]s with version.
+   * Id type is mapped via type projection of Identifiable#Id
+   */
+  type VersionableEntityTable[M <: Identifiable[M] with Versionable[M]] = IdVersionTable[M, M#Id]
+
 }
-**/
