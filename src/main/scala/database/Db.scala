@@ -4,6 +4,9 @@ package database
  * Created by android on 8/3/15.
  */
 
+import database.tableQueries.TableWithIdQuery
+import database.tables.IdTable
+
 import scala.slick.driver.MySQLDriver.simple._
 
 object Db {
@@ -13,21 +16,6 @@ object Db {
     driver = "com.mysql.jdbc.Driver",
     user="root",
     password="root")
-
-  case class User(name: String, id: Option[Long] = None)
-
-  class Users(tag: Tag) extends Table[User](tag, "users") {
-    def name = column[String]("name", O.NotNull)
-    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-    def * = (name, id.?) <> (User.tupled, User.unapply)
-  }
-
-  lazy val users = TableQuery[Users]
-}
-
-/**
-trait MappingWithActiveSlick { this: ActiveSlick =>
-  import jdbcDriver.simple._
 
   case class User(name: String, id: Option[Long] = None)
 
@@ -53,4 +41,9 @@ trait MappingWithActiveSlick { this: ActiveSlick =>
      */
     override def withId(model: User, id: Long): User = model.copy(id = Some(id))
   }
-} **/
+
+  def main(args: Array[String]): Unit = {
+
+  }
+}
+

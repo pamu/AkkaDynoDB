@@ -1,5 +1,6 @@
 package demo
 
+/**
 import akka.actor.Actor
 
 import scala.slick.driver.MySQLDriver.simple._
@@ -44,6 +45,6 @@ class Demo extends Actor {
 
 object Starter {
   def main(args: Array[String]): Unit = {
-
+    println("Starter")
   }
-}
+}**/
