@@ -9,6 +9,7 @@ import database.tableQueries.TableWithIdQuery
 import database.tables.IdTable
 
 import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.jdbc.meta.MTable
 
 object Db {
 
@@ -58,7 +59,13 @@ object DbActor {
 class DbActor extends Actor {
   import DbActor._
   override def receive = {
-    case Entry(tableWithIdQuery, model) => Db.db.withSession(implicit sx => tableWithIdQuery.save(model))
+    case Entry(tableWithIdQuery, model) => Db.db.withSession { implicit sx =>
+
+      if(MTable.getTables(tableWithIdQuery.baseTableRow.tableName).list.isEmpty)
+        tableWithIdQuery.ddl.create
+
+      tableWithIdQuery.save(model)
+    }
   }
 }
 
