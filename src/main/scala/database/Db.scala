@@ -4,6 +4,7 @@ package database
  * Created by android on 8/3/15.
  */
 
+import akka.actor.{Props, ActorSystem, Actor}
 import database.tableQueries.TableWithIdQuery
 import database.tables.IdTable
 
@@ -43,7 +44,21 @@ object Db {
   }
 
   def main(args: Array[String]): Unit = {
+    val sys = ActorSystem("system")
+    val dbActor = sys actorOf(Props[DbActor], "DbActor")
+    import DbActor._
+    dbActor ! Entry[User, Long, Users](users, User("pamu nagarjuna"))
+  }
+}
 
+object DbActor {
+  case class Entry[M, I: BaseColumnType, T <: IdTable[M, I](tableWithIdQuery: TableWithIdQuery[M, I, T], model: M)
+}
+
+class DbActor extends Actor {
+  import DbActor._
+  override def receive = {
+    case Entry(tableWithIdQuery, model) => tableWithIdQuery.save(model)
   }
 }
 
