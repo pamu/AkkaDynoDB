@@ -52,13 +52,13 @@ object Db {
 }
 
 object DbActor {
-  case class Entry[M, I: BaseColumnType, T <: IdTable[M, I](tableWithIdQuery: TableWithIdQuery[M, I, T], model: M)
+  case class Entry[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], model: M)
 }
 
 class DbActor extends Actor {
   import DbActor._
   override def receive = {
-    case Entry(tableWithIdQuery, model) => tableWithIdQuery.save(model)
+    case Entry(tableWithIdQuery, model) => Db.db.withSession(implicit sx => tableWithIdQuery.save(model))
   }
 }
 

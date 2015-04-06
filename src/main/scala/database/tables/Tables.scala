@@ -14,7 +14,7 @@ abstract class IdTable[M, I](tag: Tag, schemaName: Option[String], tableName: St
   def this(tag: Tag, tableName: String)(implicit mapping: BaseColumnType[I]) = this(tag, None, tableName)
 }
 
-abstract class IdVersionTable[M, I](tag: Tag, schemaName: Option[String], tableName: String)(override implicit val colType: BaseColumnType)
+abstract class IdVersionTable[M, I](tag: Tag, schemaName: Option[String], tableName: String)(override implicit val colType: BaseColumnType[I])
   extends IdTable[M, I](tag, schemaName, tableName)(colType) with VersionColumn {
   def this(tag: Tag, tableName: String)(implicit  mapping: BaseColumnType[I]) = this(tag, None, tableName)
 }
