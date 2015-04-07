@@ -9,6 +9,7 @@ import scala.slick.driver.MySQLDriver.simple._
 
 import database.exceptions.{StaleObjectStateException, ManyRowsAffectedException, NoRowsAffectedException, RowNotFoundException}
 
+import scala.slick.jdbc.meta.MTable
 import scala.slick.lifted.TableQuery
 import scala.util.{Failure, Success, Try}
 
@@ -17,6 +18,8 @@ import scala.util.{Failure, Success, Try}
  */
 
 abstract class ActiveTableQuery[M, T <: Table[M]](cons: Tag => T) extends TableQuery(cons) {
+
+  def createIfNotExists(implicit sess: Session) = if(MTable.getTables(baseTableRow.tableName).list.isEmpty) this.ddl.create
 
   def count(implicit sess: Session): Int = length.run
 
