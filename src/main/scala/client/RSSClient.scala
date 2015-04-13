@@ -146,7 +146,11 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 object Starter {
   def main(args: Array[String]): Unit = {
     val system = ActorSystem("ClusterSystem")
-    system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
+    val client = system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
+    case class User(name: String, id: Long)
+    val pamu = User("pamu", 1L)
+    Thread.sleep(5000)
+    client ! Entry(pamu.id, pamu)
   }
 }
 
