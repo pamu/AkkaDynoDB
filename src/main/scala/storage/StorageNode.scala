@@ -4,6 +4,7 @@ import akka.actor.{Props, ActorSystem, ActorLogging, Actor}
 import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent.{CurrentClusterState, MemberUp}
 import com.typesafe.config.ConfigFactory
+import constants.Constants
 import database.tableQueries.TableWithIdQuery
 import database.tables.IdTable
 import models.Identifiable
@@ -86,7 +87,12 @@ class StorageNode extends Actor with ActorLogging {
         **/
 
     case Get(key) =>
-
+      log.info("{}", Get(key))
+      if (cache contains key) {
+        sender ! RSSClient.Success(cache(key))
+      } else {
+        sender ! RSSClient.Error(s"key $key not found")
+      }
       /**
       val client = sender()
       val future = Future {
@@ -103,6 +109,12 @@ class StorageNode extends Actor with ActorLogging {
       //log.info(s"get request ${Get(key)} => [${cache.mkString(", ")}]")
         **/
     case Evict(key) =>
+      log.info("{}", Evict(key))
+      if (cache contains key) {
+        sender() ! RSSClient.Success(s"key $key Successfully deleted.")
+      } else {
+        sender() ! RSSClient.Error(s"key $key not found. ")
+      }
       /**
       val client = sender()
       val future = Future {
@@ -119,7 +131,7 @@ class StorageNode extends Actor with ActorLogging {
   }
 }
 
-/**
+
 object Starter {
   def main(args: Array[String]): Unit = {
     val port = if (args.isEmpty) "0" else args(0)
@@ -127,6 +139,6 @@ object Starter {
       withFallback(ConfigFactory.parseString("akka.cluster.roles = [storage]")).
       withFallback(ConfigFactory.load())
     val system = ActorSystem("ClusterSystem", config)
-    system.actorOf(Props[StorageNode], name = "storageNode")
+    system.actorOf(Props[StorageNode], name = Constants.StorageNode)
   }
-}**/
+}

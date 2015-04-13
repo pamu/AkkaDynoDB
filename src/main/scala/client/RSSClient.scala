@@ -3,6 +3,7 @@ package client
 import akka.actor._
 import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent._
+import constants.Constants
 import storage.StorageNode.{Entry, Message}
 
 //import database.tableQueries.TableWithIdQuery
@@ -44,7 +45,7 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 
   import context.dispatcher
 
-  val tickTask = context.system.scheduler.schedule(2.seconds, 10.seconds, self, "tick")
+  //val tickTask = context.system.scheduler.schedule(2.seconds, 10.seconds, self, "tick")
 
   var nodes = Set.empty[Address]
 
@@ -145,6 +146,11 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 object Starter {
   def main(args: Array[String]): Unit = {
     val system = ActorSystem("ClusterSystem")
-    system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), "client")
+    system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
   }
+}
+
+object Client {
+  val system = ActorSystem("ClusterSystem")
+  system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
 }

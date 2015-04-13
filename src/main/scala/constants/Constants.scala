@@ -7,4 +7,5 @@ object Constants {
   val ReactiveStorageService = "ReactiveStorageService"
   val Router = "Router"
   val StorageNode = "StorageNode"
+  val client = "Client"
 }
