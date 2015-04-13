@@ -19,7 +19,7 @@ import scala.concurrent.duration._
 object RSSClient {
   trait Result
   final case class Error(msg: String) extends Result
-  final case class Success(value: Any) extends Result
+  final case class Success(value: AnyRef) extends Result
 }
 
 class RSSClient(servicePath: String) extends Actor with ActorLogging {

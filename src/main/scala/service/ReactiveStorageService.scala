@@ -37,6 +37,12 @@ class ReactiveStorageService extends Actor {
       //wrap the evict key in the envelope
       workerRouter forward ConsistentHashableEnvelope(message = Evict(key), hashKey = key)
     }
+
+    case All(key) => {
+      //All operation message from the client
+      //wrap the all key in the envelope
+      workerRouter forward ConsistentHashableEnvelope(message = All(key), hashKey = key)
+    }
   }
 }
 
