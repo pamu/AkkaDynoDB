@@ -48,7 +48,7 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 
   var nodes = Set.empty[Address]
 
-  //var seq = 0
+  var seq = 0
 
   /*
   import scala.slick.driver.MySQLDriver.simple._
@@ -105,8 +105,11 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
         service ! storage.StorageNode.Get(s"name$random")
       }
       **/
-      log.info(s"${nodes.toIndexedSeq.size} nodes")
-      self ! Entry(1, "Pamu Nagarjuna")
+      log.info(s"${nodes.toIndexedSeq.size} nodes registered")
+      self ! Entry(seq, "Pamu Nagarjuna")
+      seq += 1
+      log.info("{} sent.", Entry(1, "Pamu Nagarjuna"))
+
       //self ! storage.StorageNode.Entry[User, Long, Users](users, 1L, User("pamu nagarjuna"))
     }
 
@@ -133,6 +136,8 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
     case other: MemberEvent                            => nodes -= other.member.address
     case UnreachableMember(member)                     => nodes -= member.address
     case ReachableMember(member)                       => nodes += member.address
+
+    case any => log.info("unknown message of type: {}", any getClass)
   }
 }
 
@@ -140,6 +145,6 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 object Starter {
   def main(args: Array[String]): Unit = {
     val system = ActorSystem("ClusterSystem")
-    system.actorOf(Props(classOf[RSSClient], "/user/akkaStorageService"), "client")
+    system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), "client")
   }
 }

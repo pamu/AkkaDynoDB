@@ -4,6 +4,7 @@ import akka.actor.{Props, ActorSystem, Actor}
 import akka.routing.ConsistentHashingRouter.ConsistentHashableEnvelope
 import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
+import constants.Constants
 import storage.StorageNode
 
 /**
@@ -13,7 +14,7 @@ import storage.StorageNode
 
 class ReactiveStorageService extends Actor {
 
-  val workerRouter = context.actorOf(FromConfig.props(Props[StorageNode]), name = "workerRouter")
+  val workerRouter = context.actorOf(FromConfig.props(Props[StorageNode]), name = Constants.Router)
   // import the worker node message get, entry, evict
   import StorageNode._
 
@@ -55,9 +56,9 @@ object Starter {
     val system = ActorSystem("ClusterSystem", config)
 
     //start the worker actor which does the real storing stuff
-    system.actorOf(Props[StorageNode], name = "storage")
+    system.actorOf(Props[StorageNode], name = Constants.StorageNode)
 
     //starting akka storage service actor
-    system.actorOf(Props[ReactiveStorageService], name = "reactiveStorageService")
+    system.actorOf(Props[ReactiveStorageService], name = Constants.ReactiveStorageService)
   }
 }

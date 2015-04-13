@@ -56,6 +56,7 @@ class StorageNode extends Actor with ActorLogging {
   override def postStop(): Unit = cluster.unsubscribe(self)
 
   import StorageNode._
+  import client.RSSClient
 
   //import context.dispatcher
 
@@ -68,7 +69,8 @@ class StorageNode extends Actor with ActorLogging {
 
     case Entry(key, value) =>
       cache += (key -> value)
-      sender ! s"[success]::> Entry ${Entry(key, value).toString} successful."
+      sender ! RSSClient.Success(s"[success]::> ${Entry(key, value).toString} successful.")
+      log.info("{}", cache.mkString("\n"))
       /**
       val client = sender()
       val future = Future {
