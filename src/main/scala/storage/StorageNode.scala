@@ -25,8 +25,7 @@ object StorageNode {
   trait DbMessage
   final case class Entry[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I, model: M) extends DbMessage
   final case class Evict[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage
-  final case class Get[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage
-    **/
+  final case class Get[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage**/
   trait Message {
     val key: Long
   }
@@ -45,8 +44,7 @@ class StorageNode extends Actor with ActorLogging {
     url = s"jdbc:mysql://localhost/demo${cluster.selfAddress.hostPort}",
     driver = "com.mysql.jdbc.Driver",
     user="root",
-    password="root")
-    **/
+    password="root")**/
 
   val cluster = Cluster(context.system)
 
@@ -91,7 +89,7 @@ class StorageNode extends Actor with ActorLogging {
       if (cache contains key) {
         sender ! RSSClient.Success(cache(key))
       } else {
-        sender ! RSSClient.Error(s"key $key not found")
+        sender ! RSSClient.Error(s"[failure]::> key $key not found")
       }
       /**
       val client = sender()
@@ -111,6 +109,7 @@ class StorageNode extends Actor with ActorLogging {
     case Evict(key) =>
       log.info("{}", Evict(key))
       if (cache contains key) {
+	cache -= key
         sender() ! RSSClient.Success(s"key $key Successfully deleted.")
       } else {
         sender() ! RSSClient.Error(s"key $key not found. ")

@@ -152,5 +152,5 @@ object Starter {
 
 object Client {
   val system = ActorSystem("ClusterSystem")
-  system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
+  val service = system.actorOf(Props(classOf[RSSClient], "/user/ReactiveStorageService"), Constants.client)
 }
