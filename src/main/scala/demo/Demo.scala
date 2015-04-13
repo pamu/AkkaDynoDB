@@ -1,5 +1,7 @@
 package demo
 
+import akka.actor.{ActorLogging, Actor}
+
 /**
 import akka.actor.Actor
 
@@ -47,4 +49,18 @@ object Starter {
   def main(args: Array[String]): Unit = {
     println("Starter")
   }
+}
+  object Greeter {
+  case object Hi
+  case object Hello
+}
+
+class Greeter extends Actor with ActorLogging {
+  import Greeter._
+  override def receive = {
+    case Hi => sender() ! Hello
+    case _ => log.info("unknown message")
+  }
 }**/
+
+

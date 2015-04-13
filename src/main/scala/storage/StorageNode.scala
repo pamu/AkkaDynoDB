@@ -20,22 +20,32 @@ import scala.util.{Failure, Success}
  */
 
 object StorageNode {
+  /**
   trait DbMessage
   final case class Entry[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I, model: M) extends DbMessage
   final case class Evict[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage
   final case class Get[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage
+    **/
+  trait Message {
+    val key: Long
+  }
+  final case class Entry(override val key: Long, value: Any) extends Message
+  final case class Evict(override val key: Long) extends Message
+  final case class Get(override val key: Long) extends Message
 }
 
 
 class StorageNode extends Actor with ActorLogging {
 
-  //var cache = Map.empty[String, String]
+  var cache = Map.empty[Long, Any]
 
+  /**
   lazy val db = Database.forURL(
     url = s"jdbc:mysql://localhost/demo${cluster.selfAddress.hostPort}",
     driver = "com.mysql.jdbc.Driver",
     user="root",
     password="root")
+    **/
 
   val cluster = Cluster(context.system)
 
@@ -47,7 +57,7 @@ class StorageNode extends Actor with ActorLogging {
 
   import StorageNode._
 
-  import context.dispatcher
+  //import context.dispatcher
 
   override def receive = {
 
@@ -55,7 +65,11 @@ class StorageNode extends Actor with ActorLogging {
       foreach(x => log.info(s"${x.address} is Up"))
 
     case MemberUp(member) => log.info("member {} is up", member.address)
-    case Entry(tableWithIdQuery, key, model) =>
+
+    case Entry(key, value) =>
+      cache += (key -> value)
+      sender ! s"[success]::> Entry ${Entry(key, value).toString} successful."
+      /**
       val client = sender()
       val future = Future {
         db.withSession { implicit sx =>
@@ -67,7 +81,11 @@ class StorageNode extends Actor with ActorLogging {
       future pipeTo self
       //cache += (key -> value)
       //log.info(s"entry request ${Entry(key, value)} => [${cache.mkString(", ")}]")
-    case Get(tableWithIdQuery, key) =>
+        **/
+
+    case Get(key) =>
+
+      /**
       val client = sender()
       val future = Future {
         db.withSession { implicit sx =>
@@ -81,7 +99,9 @@ class StorageNode extends Actor with ActorLogging {
       future pipeTo self
       //sender() ! cache.get(key)
       //log.info(s"get request ${Get(key)} => [${cache.mkString(", ")}]")
-    case Evict(tableWithIdQuery, key) =>
+        **/
+    case Evict(key) =>
+      /**
       val client = sender()
       val future = Future {
         db.withSession { implicit sx =>
@@ -93,6 +113,7 @@ class StorageNode extends Actor with ActorLogging {
       future pipeTo self
       //cache -= key
       //log.info(s"evict request ${Evict(key)} => [${cache.mkString(", ")}]")
+        **/
   }
 }
 

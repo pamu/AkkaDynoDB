@@ -3,9 +3,10 @@ package client
 import akka.actor._
 import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent._
-import database.tableQueries.TableWithIdQuery
-import database.tables.IdTable
-import storage.StorageNode.DbMessage
+import storage.StorageNode.{Entry, Message}
+
+//import database.tableQueries.TableWithIdQuery
+//import database.tables.IdTable
 
 import scala.concurrent.duration._
 //import scala.concurrent.forkjoin.ThreadLocalRandom
@@ -14,8 +15,15 @@ import scala.concurrent.duration._
  * Created by android on 10/3/15.
  */
 
+object RSSClient {
+  trait Result
+  final case class Error(msg: String) extends Result
+  final case class Success(value: Any) extends Result
+}
 
 class RSSClient(servicePath: String) extends Actor with ActorLogging {
+
+  import RSSClient._
 
   val cluster = Cluster(context.system)
   val servicePathElements = servicePath match {
@@ -42,6 +50,7 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
 
   //var seq = 0
 
+  /*
   import scala.slick.driver.MySQLDriver.simple._
 
   case class User(name: String, id: Option[Long] = None)
@@ -67,8 +76,7 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
      * @return a model M with an assigned id.
      */
     override def withId(model: User, id: Long): User = model.copy(id = Some(id))
-  }
-
+  }**/
 
   override def receive = {
 
@@ -97,16 +105,25 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
         service ! storage.StorageNode.Get(s"name$random")
       }
       **/
-      log.info(nodes.toIndexedSeq.size + " ")
-      self ! storage.StorageNode.Entry[User, Long, Users](users, 1L, User("pamu nagarjuna"))
+      log.info(s"${nodes.toIndexedSeq.size} nodes")
+      self ! Entry(1, "Pamu Nagarjuna")
+      //self ! storage.StorageNode.Entry[User, Long, Users](users, 1L, User("pamu nagarjuna"))
     }
 
-    case message: DbMessage =>
+    case message: Message =>
       val address = nodes.toIndexedSeq(0)
       val service = context.actorSelection(RootActorPath(address) / servicePathElements)
       service ! message
 
-    case msg: String => log.info(msg)
+    case result: Result =>
+      result match {
+        case Error(msg) => log.info(msg)
+        case Success(value) =>
+          value match {
+            case msg: String => log.info(msg)
+            case value => log.info("{}", value)
+          }
+      }
 
     case state: CurrentClusterState => nodes = state.members.collect {
         case member if member.hasRole("storage") && member.status == MemberStatus.Up => member.address
