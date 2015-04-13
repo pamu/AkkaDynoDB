@@ -43,10 +43,13 @@ object Db {
     override def withId(model: User, id: Long): User = model.copy(id = Some(id))
   }
 
+
+
   def main(args: Array[String]): Unit = {
     val sys = ActorSystem("system")
     val dbActor = sys actorOf(Props[DbActor], "DbActor")
     import DbActor._
+    for(i <- 1 to 100)
     dbActor ! Entry[User, Long, Users](users, User("pamu nagarjuna"))
   }
 }

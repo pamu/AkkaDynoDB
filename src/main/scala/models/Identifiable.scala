@@ -3,7 +3,7 @@ package models
 /**
  * Base trait to define a model having an ID (i.e.: Entity).
  * The ID is defined as a type alias as it needs to
- * be accessed by ActiveSlick via type projection when mapping to databse tables.
+ * be accessed by ActiveSlick via type projection when mapping to database tables.
  */
 trait Identifiable[E <: Identifiable[E]] {
 

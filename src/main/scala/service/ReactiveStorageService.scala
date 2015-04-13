@@ -20,21 +20,21 @@ class ReactiveStorageService extends Actor {
   // actor receive method
   override def receive = {
 
-    case Get(key) => {
+    case get @ Get(tableWithIdQuery, key) => {
       //Get message from the client
       //Wrap the message in the consistent hashable envelope and send it to the router
-      workerRouter ! ConsistentHashableEnvelope(message = Get(key), hashKey = key)
+      workerRouter forward ConsistentHashableEnvelope(message = get, hashKey = get.key)
     }
-    case Entry(key, value) => {
+    case entry @ Entry(tableWithIdQuery, key, model) => {
       //Entry message from the client to add the key to the store
       //wrap the message in the envelope
-      workerRouter ! ConsistentHashableEnvelope(message = Entry(key, value), hashKey = key)
+      workerRouter forward ConsistentHashableEnvelope(message = entry, hashKey = entry.key)
     }
 
-    case Evict(key) => {
+    case evict @ Evict(tableWithIdQuery, key) => {
       //Evict operation message from the client
       //wrap the evict key in the envelope
-      workerRouter ! ConsistentHashableEnvelope(message = Evict(key), hashKey = key)
+      workerRouter forward ConsistentHashableEnvelope(message = evict, hashKey = evict.key)
     }
   }
 }
