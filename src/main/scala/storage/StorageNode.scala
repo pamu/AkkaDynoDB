@@ -110,7 +110,7 @@ class StorageNode extends Actor with ActorLogging {
     case Evict(key) =>
       log.info("{}", Evict(key))
       if (cache contains key) {
-	cache -= key
+	      cache -= key
         sender() ! RSSClient.Success(s"key $key Successfully deleted.")
       } else {
         sender() ! RSSClient.Error(s"key $key not found. ")

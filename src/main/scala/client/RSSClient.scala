@@ -9,7 +9,7 @@ import storage.StorageNode.{Entry, Message}
 //import database.tableQueries.TableWithIdQuery
 //import database.tables.IdTable
 
-import scala.concurrent.duration._
+//import scala.concurrent.duration._
 //import scala.concurrent.forkjoin.ThreadLocalRandom
 
 /**
@@ -43,7 +43,7 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
     //tickTask.cancel()
   }
 
-  import context.dispatcher
+  //import context.dispatcher
 
   //val tickTask = context.system.scheduler.schedule(2.seconds, 10.seconds, self, "tick")
 

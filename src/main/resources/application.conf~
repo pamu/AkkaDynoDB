@@ -12,8 +12,8 @@ akka {
 
   cluster {
     seed-nodes = [
-      "akka.tcp://ClusterSystem@10.8.6.191:2551",
       "akka.tcp://ClusterSystem@10.8.15.59:2552",
+      "akka.tcp://ClusterSystem@10.8.6.191:2551",
       "akka.tcp://ClusterSystem@10.8.6.191:2553"]
 
     auto-down-unreachable-after = 10s
