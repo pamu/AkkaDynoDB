@@ -107,9 +107,9 @@ class RSSClient(servicePath: String) extends Actor with ActorLogging {
       }
       **/
       log.info(s"${nodes.toIndexedSeq.size} nodes registered")
-      self ! Entry(seq, "Pamu Nagarjuna")
+      self ! Entry(seq.toString, "Pamu Nagarjuna")
       seq += 1
-      log.info("{} sent.", Entry(1, "Pamu Nagarjuna"))
+      log.info("{} sent.", Entry(1.toString, "Pamu Nagarjuna"))
 
       //self ! storage.StorageNode.Entry[User, Long, Users](users, 1L, User("pamu nagarjuna"))
     }
@@ -150,7 +150,7 @@ object Starter {
     case class User(name: String, id: Long)
     val pamu = User("pamu", 1L)
     Thread.sleep(5000)
-    client ! Entry(pamu.id, pamu)
+    client ! Entry(pamu.id.toString, pamu)
   }
 }
 

@@ -27,18 +27,18 @@ object StorageNode {
   final case class Evict[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage
   final case class Get[M, I: BaseColumnType, T <: IdTable[M, I]](tableWithIdQuery: TableWithIdQuery[M, I, T], key: I) extends DbMessage**/
   trait Message extends Serializable {
-    val key: Long
+    val key: String
   }
-  final case class Entry(override val key: Long, value: Any) extends Message
-  final case class Evict(override val key: Long) extends Message
-  final case class Get(override val key: Long) extends Message
-  final case class All(override val key: Long) extends Message
+  final case class Entry(override val key: String, value: Any) extends Message
+  final case class Evict(override val key: String) extends Message
+  final case class Get(override val key: String) extends Message
+  final case class All(override val key: String) extends Message
 }
 
 
 class StorageNode extends Actor with ActorLogging {
 
-  var cache = scala.collection.immutable.ListMap.empty[Long, Any]
+  var cache = scala.collection.immutable.ListMap.empty[String, Any]
 
   /**
   lazy val db = Database.forURL(
@@ -147,3 +147,5 @@ object Starter {
     system.actorOf(Props[StorageNode], name = Constants.StorageNode)
   }
 }
+
+
