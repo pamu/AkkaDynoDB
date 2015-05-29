@@ -8,4 +8,5 @@ object Constants {
   val Router = "Router"
   val StorageNode = "StorageNode"
   val client = "Client"
+  val Replicator = "Replicator"
 }

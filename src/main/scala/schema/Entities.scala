@@ -9,9 +9,10 @@ import database.tables.IdTable
 import scala.slick.driver.MySQLDriver.simple._
 
 class Entities(tag: Tag) extends IdTable[Entity, Long](tag, "Entities") {
-  def json = column[String]("json", O.NotNull)
-  def id = column[Long]("id", O.PrimaryKey)
-  def * = (json, id) <> (Entity.tupled, Entity.unapply)
+  def key = column[String]("key", O.NotNull)
+  def value = column[String]("value", O.NotNull)
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def * = (key, value, id.?) <> (Entity.tupled, Entity.unapply)
 }
 
 

@@ -16,7 +16,7 @@ object EntityUtils {
      * @param model a mapped model
      * @return a Some[I] if Id is filled, None otherwise
      */
-    override def extractId(model: Entity): Option[Long] = Some(model._id)
+    override def extractId(model: Entity): Option[Long] = model.id
 
     /**
      *
@@ -24,7 +24,7 @@ object EntityUtils {
      * @param id an id, usually generate by the database
      * @return a model M with an assigned id.
      */
-    override def withId(model: Entity, id: Long): Entity = model.copy(id = id)
+    override def withId(model: Entity, id: Long): Entity = model.copy(id = Some(id))
   }
 
   def getEntity(id: Long)(implicit db: Database): Try[Entity] = db.withSession {implicit sx => {

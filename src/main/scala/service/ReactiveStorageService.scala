@@ -5,6 +5,7 @@ import akka.routing.ConsistentHashingRouter.ConsistentHashableEnvelope
 import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
 import constants.Constants
+import replication.Replicator
 import storage.StorageNode
 
 /**
@@ -54,9 +55,9 @@ object Starter {
     val port = if(args.isEmpty) "0" else args(0)
 
     //read the configuration in the file rss.conf
-    val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").withFallback(
-      ConfigFactory.parseString("akka.cluster.roles = [storage]")).withFallback(
-        ConfigFactory.load("rss"))
+    val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port")
+      .withFallback(ConfigFactory.parseString("akka.cluster.roles = [storage]"))
+      .withFallback(ConfigFactory.load("rss"))
 
     //get the ref of the actor system
     val system = ActorSystem("ClusterSystem", config)
@@ -66,5 +67,8 @@ object Starter {
 
     //starting akka storage service actor
     system.actorOf(Props[ReactiveStorageService], name = Constants.ReactiveStorageService)
+
+    //starting akka replicator service actor
+    //system.actorOf(Props[Replicator], Constants.Replicator)
   }
 }
