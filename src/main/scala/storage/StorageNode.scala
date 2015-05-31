@@ -5,6 +5,8 @@ import akka.cluster.{MemberStatus, Cluster}
 import akka.cluster.ClusterEvent.{CurrentClusterState, MemberUp}
 import com.typesafe.config.ConfigFactory
 import constants.Constants
+import replication.Replicator
+
 //import database.tableQueries.TableWithIdQuery
 //import database.tables.IdTable
 //import models.Identifiable
@@ -47,6 +49,8 @@ class StorageNode extends Actor with ActorLogging {
     user="root",
     password="root")**/
 
+  val replicator = context.system.actorOf(Props[Replicator], Constants.Replicator)
+
   val cluster = Cluster(context.system)
 
   // on actor pre start
@@ -69,6 +73,7 @@ class StorageNode extends Actor with ActorLogging {
 
     case Entry(key, value) =>
       cache += (key -> value)
+      replicator ! Entry(key, value)
       sender ! RSSClient.Success(s"[success]::> ${Entry(key, value).toString} successful.")
       log.info("{}", cache.mkString("\n", "\n", "\n"))
       /**
@@ -87,6 +92,7 @@ class StorageNode extends Actor with ActorLogging {
 
     case Get(key) =>
       log.info("{}", Get(key))
+      replicator ! Get(key)
       if (cache contains key) {
         sender ! RSSClient.Success(cache(key))
       } else {
@@ -108,6 +114,7 @@ class StorageNode extends Actor with ActorLogging {
       //log.info(s"get request ${Get(key)} => [${cache.mkString(", ")}]")
         **/
     case Evict(key) =>
+      replicator ! Evict(key)
       log.info("{}", Evict(key))
       if (cache contains key) {
 	      cache -= key
