@@ -1,8 +1,8 @@
 package storage
 
-import akka.actor.{Props, ActorSystem, ActorLogging, Actor}
-import akka.cluster.{MemberStatus, Cluster}
-import akka.cluster.ClusterEvent.{CurrentClusterState, MemberUp}
+import akka.actor._
+import akka.cluster.{UniqueAddress, MemberStatus, Cluster}
+import akka.cluster.ClusterEvent._
 import com.typesafe.config.ConfigFactory
 import constants.Constants
 import replication.Replicator
@@ -35,12 +35,14 @@ object StorageNode {
   final case class Evict(override val key: String) extends Message
   final case class Get(override val key: String) extends Message
   final case class All(override val key: String) extends Message
+  final case class ReplicaEntry(override val key: String, value: Any) extends Message
 }
 
 
 class StorageNode extends Actor with ActorLogging {
 
   var cache = scala.collection.immutable.ListMap.empty[String, Any]
+  var nodes = Set.empty[UniqueAddress]
 
   /**
   lazy val db = Database.forURL(
@@ -49,7 +51,7 @@ class StorageNode extends Actor with ActorLogging {
     user="root",
     password="root")**/
 
-  val replicator = context.system.actorOf(Props[Replicator], Constants.Replicator)
+  //val replicator = context.system.actorOf(Props[Replicator], Constants.Replicator)
 
   val cluster = Cluster(context.system)
 
@@ -69,13 +71,20 @@ class StorageNode extends Actor with ActorLogging {
     case state: CurrentClusterState => state.members.filter(_.status == MemberStatus.Up).
       foreach(x => log.info(s"${x.address} is Up"))
 
-    case MemberUp(member) => log.info("member {} is up", member.address)
+    case MemberUp(member) if member.hasRole("storage") => nodes += member.uniqueAddress
+    case other: MemberEvent                            => nodes -= other.member.uniqueAddress
+    case UnreachableMember(member)                     => nodes -= member.uniqueAddress
+    case ReachableMember(member)                       => nodes += member.uniqueAddress
 
     case Entry(key, value) =>
+      println(nodes.mkString("\n"))
+      println("unique address " + cluster.selfUniqueAddress)
+      nodes.filter(address => address != cluster.selfUniqueAddress).map{address => println("sending to this address: " + address); context.actorSelection(RootActorPath(address.address) / ("/user/StorageNode" match {case RelativeActorPath(elements) => elements})) ! ReplicaEntry(key, value)}
       cache += (key -> value)
-      replicator ! Entry(key, value)
+      //replicator ! Entry(key, value)
       sender ! RSSClient.Success(s"[success]::> ${Entry(key, value).toString} successful.")
       log.info("{}", cache.mkString("\n", "\n", "\n"))
+      log.info("Total key value pairs till now {}", cache.size)
       /**
       val client = sender()
       val future = Future {
@@ -89,10 +98,11 @@ class StorageNode extends Actor with ActorLogging {
       //cache += (key -> value)
       //log.info(s"entry request ${Entry(key, value)} => [${cache.mkString(", ")}]")
         **/
+    case ReplicaEntry(key, value) => cache += (key -> value)
 
     case Get(key) =>
       log.info("{}", Get(key))
-      replicator ! Get(key)
+      //replicator ! Get(key)
       if (cache contains key) {
         sender ! RSSClient.Success(cache(key))
       } else {
@@ -114,7 +124,7 @@ class StorageNode extends Actor with ActorLogging {
       //log.info(s"get request ${Get(key)} => [${cache.mkString(", ")}]")
         **/
     case Evict(key) =>
-      replicator ! Evict(key)
+      //replicator ! Evict(key)
       log.info("{}", Evict(key))
       if (cache contains key) {
 	      cache -= key
